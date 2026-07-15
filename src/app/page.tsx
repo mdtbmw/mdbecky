@@ -23,12 +23,12 @@ import LetterScreen from "@/components/LetterScreen";
 const driftingEmojis = ["❤️", "💖", "🥰", "✨", "🌸", "🌻", "🎈"];
 
 const CAROUSEL_IMAGES = [
-  { id: 1, src: "/Images/Daniel and Becky she looking at him and his hand up to the camera.jpeg", emoji: "👩‍❤️‍👨", label: "Our smiles" },
-  { id: 2, src: "/Images/Daniel and Becky sitting with hands on chin and dan behind becky.jpeg", emoji: "🍕", label: "Our sweet dates" },
-  { id: 3, src: "/Images/Daniel and Becky.jpeg", emoji: "🌅", label: "Us" },
+  { id: 1, src: "/Images/Daniel and Becky she looking at him and his hand up to the camera.jpeg", emoji: "👩‍❤️‍👨", label: "Our smiles (AI-Generated)" },
+  { id: 2, src: "/Images/Daniel and Becky sitting with hands on chin and dan behind becky.jpeg", emoji: "🍕", label: "Our sweet dates (AI-Generated)" },
+  { id: 3, src: "/Images/Daniel and Becky.jpeg", emoji: "🌅", label: "Us (AI-Generated)" },
 ];
 
-// 🌧️ Custom backdrop that rains Becky's name in tiny letters continuously
+// 🌧️ Backdrop that rains Becky's name in tiny letters continuously
 function RainingNames() {
   const [particles, setParticles] = useState<{ id: number; x: number; delay: number; duration: number; scale: number }[]>([]);
 
@@ -190,7 +190,7 @@ function ProposalAppContent() {
     scrollToSection(1);
   };
 
-  // --- SCREEN 1: TERMINAL STATES (Mysterious - No Names revealed) ---
+  // --- SCREEN 1: TERMINAL STATES ---
   const [terminalLines, setTerminalLines] = useState<string[]>([]);
   const [terminalDone, setTerminalDone] = useState(false);
   const [terminalReveal, setTerminalReveal] = useState(false);
@@ -582,16 +582,15 @@ function ProposalAppContent() {
         ref={containerRef}
         className="scroll-container no-scrollbar w-full flex-1 z-10"
       >
-        {/* --- SCREEN 0: DECRYPT MESSAGE (Minimalist - No photo watermark yet to keep surprise) --- */}
+        {/* --- SCREEN 0: DECRYPT MESSAGE --- */}
         <ViewportSection id="section-0" isActive={activeSection === 0}>
-          <div className="flex-1 flex flex-col justify-between items-center w-full py-4 text-black text-center select-none z-10">
-            <div className="flex items-center gap-2 border-2 border-black rounded-full px-4 py-2 font-mono text-xs uppercase bg-neutral-50 shrink-0">
-              <Lock size={14} className="animate-pulse" />
-              Secure Message Protocol
-            </div>
-
-            <div className="w-full flex-1 flex flex-col items-center justify-center gap-4">
-              <span className="text-6xl animate-float-slow">📩</span>
+          <div className="w-full flex-1 overflow-y-auto no-scrollbar flex flex-col items-center py-2 min-h-0">
+            <div className="my-auto w-full flex flex-col items-center justify-center gap-4 text-center select-none">
+              <div className="flex items-center gap-2 border-2 border-black rounded-full px-4 py-2 font-mono text-xs uppercase bg-neutral-50 shrink-0">
+                <Lock size={14} className="animate-pulse" />
+                Secure Message Protocol
+              </div>
+              <span className="text-6xl animate-float-slow mt-2">📩</span>
               <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight">
                 Hi there.
               </h1>
@@ -599,93 +598,94 @@ function ProposalAppContent() {
                 There is an encrypted, secure message waiting to be decrypted. Please verify your connection below.
               </p>
             </div>
+          </div>
 
-            <div className="w-full max-w-md shrink-0 flex flex-col items-center gap-2">
-              <button
-                onClick={handleDecryptMessage}
-                className="w-full py-4 rounded-full bg-black text-white hover:bg-neutral-900 font-extrabold text-base transition duration-300 active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
-              >
-                Decrypt Message 🔑
-              </button>
-              <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
-                Click decrypt below to begin our journey... 👇
-              </p>
-            </div>
+          <div className="w-full max-w-md shrink-0 flex flex-col items-center gap-2 select-none">
+            <button
+              onClick={handleDecryptMessage}
+              className="w-full py-4 rounded-full bg-black text-white hover:bg-neutral-900 font-extrabold text-base transition duration-300 active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
+            >
+              Decrypt Message Anyway... 🙄
+            </button>
+            <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
+              Click decrypt below to begin our journey... 👇
+            </p>
           </div>
         </ViewportSection>
 
         {/* --- SCREEN 1: LOADING TERMINAL --- */}
         {unlockedSection >= 1 && (
           <ViewportSection id="section-1" isActive={activeSection === 1}>
-            <div className="flex-1 flex flex-col justify-between items-center w-full py-4 text-black">
-              <div className="flex items-center gap-2 border-2 border-black rounded-full px-4 py-2 font-mono text-xs uppercase bg-neutral-50 shrink-0">
-                <Terminal size={14} className="animate-pulse" />
-                Terminal
-              </div>
-
-              <div className="w-full flex-1 flex flex-col md:flex-row items-center justify-center gap-6 my-6">
-                <div className="relative shrink-0">
-                  <Illustration name="detective" />
+            <div className="w-full flex-1 overflow-y-auto no-scrollbar flex flex-col items-center py-2 min-h-0">
+              <div className="my-auto w-full flex flex-col items-center justify-center gap-4">
+                <div className="flex items-center gap-2 border-2 border-black rounded-full px-4 py-2 font-mono text-xs uppercase bg-neutral-50 shrink-0">
+                  <Terminal size={14} className="animate-pulse" />
+                  Terminal
                 </div>
 
-                <div className="w-full max-w-sm font-mono text-left bg-black text-white p-6 rounded-2xl border-2 border-black min-h-[190px] flex flex-col justify-start gap-1.5 shadow-none overflow-hidden select-text text-sm">
-                  {terminalLines.map((line, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, x: -5 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.2 }}
-                      className="flex items-center gap-2"
-                    >
-                      <span className="text-accent font-bold">&gt;</span>
-                      <span>{line}</span>
-                    </motion.div>
-                  ))}
-                  {!terminalReveal && (
-                    <div className="flex items-center gap-2">
-                      <span className="text-accent font-bold">&gt;</span>
-                      <span className="w-2.5 h-4 bg-white cursor-blink" />
-                    </div>
-                  )}
+                <div className="w-full flex-col md:flex-row items-center justify-center gap-6 my-2 flex">
+                  <div className="relative shrink-0">
+                    <Illustration name="detective" />
+                  </div>
 
-                  <AnimatePresence>
-                    {terminalReveal && (
+                  <div className="w-full max-w-sm font-mono text-left bg-black text-white p-6 rounded-2xl border-2 border-black min-h-[190px] flex flex-col justify-start gap-1.5 shadow-none overflow-hidden select-text text-sm">
+                    {terminalLines.map((line, i) => (
                       <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
-                        className="mt-4 pt-4 border-t border-neutral-800 text-neutral-200"
+                        key={i}
+                        initial={{ opacity: 0, x: -5 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="flex items-center gap-2"
                       >
-                        <p className="text-base font-bold text-accent">Security Match Found.</p>
-                        <p className="text-xs text-neutral-400 mt-1 italic font-sans">
-                          &ldquo;Access credentials ready.&rdquo;
-                        </p>
+                        <span className="text-accent font-bold">&gt;</span>
+                        <span>{line}</span>
                       </motion.div>
+                    ))}
+                    {!terminalReveal && (
+                      <div className="flex items-center gap-2">
+                        <span className="text-accent font-bold">&gt;</span>
+                        <span className="w-2.5 h-4 bg-white cursor-blink" />
+                      </div>
                     )}
-                  </AnimatePresence>
+
+                    <AnimatePresence>
+                      {terminalReveal && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.6 }}
+                          className="mt-4 pt-4 border-t border-neutral-800 text-neutral-200"
+                        >
+                          <p className="text-base font-bold text-accent">Security Match Found.</p>
+                          <p className="text-xs text-neutral-400 mt-1 italic font-sans">
+                            &ldquo;Access credentials ready.&rdquo;
+                          </p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
                 </div>
               </div>
+            </div>
 
-              <div className="w-full max-w-md shrink-0 flex flex-col items-center gap-2">
-                <button
-                  onClick={() => {
-                    if (synth) synth.playPop();
-                    scrollToSection(2);
-                  }}
-                  disabled={!terminalDone}
-                  className={`w-full py-4 rounded-full font-extrabold text-base transition duration-300 active:scale-95 flex items-center justify-center gap-2 ${
-                    terminalDone
-                      ? "bg-black text-white hover:bg-neutral-900 cursor-pointer"
-                      : "bg-neutral-200 text-neutral-400 cursor-not-allowed"
-                  }`}
-                >
-                  Continue
-                  <ChevronDown size={18} />
-                </button>
-                <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
-                  Decrypted successfully. Let&apos;s proceed to the security questions below... 👇
-                </p>
-              </div>
+            <div className="w-full max-w-md shrink-0 flex flex-col items-center gap-2 select-none">
+              <button
+                onClick={() => {
+                  if (synth) synth.playPop();
+                  scrollToSection(2);
+                }}
+                disabled={!terminalDone}
+                className={`w-full py-4 rounded-full font-extrabold text-base transition duration-300 active:scale-95 flex items-center justify-center gap-2 ${
+                  terminalDone
+                    ? "bg-black text-white hover:bg-neutral-900 cursor-pointer"
+                    : "bg-neutral-200 text-neutral-400 cursor-not-allowed"
+                }`}
+              >
+                Proceed with caution... 🚨
+              </button>
+              <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
+                Decrypted successfully. Let&apos;s proceed to the security questions below... 👇
+              </p>
             </div>
           </ViewportSection>
         )}
@@ -693,17 +693,14 @@ function ProposalAppContent() {
         {/* --- SCREEN 2: DO YOU KNOW THIS GUY? --- */}
         {unlockedSection >= 2 && (
           <ViewportSection id="section-2" isActive={activeSection === 2}>
-            <div className="flex-1 flex flex-col justify-between items-center w-full py-4 text-black text-center">
-              <div className="text-center shrink-0">
-                <span className="text-xs uppercase tracking-widest font-mono text-neutral-400">VERIFICATION PART I</span>
-                <h2 className="text-2xl md:text-3xl font-extrabold mt-2 select-none">
+            <div className="w-full flex-1 overflow-y-auto no-scrollbar flex flex-col items-center py-2 min-h-0">
+              <div className="my-auto w-full flex flex-col items-center justify-center gap-4 text-center">
+                <span className="text-xs uppercase tracking-widest font-mono text-neutral-400 select-none">VERIFICATION PART I</span>
+                <h2 className="text-2xl md:text-3xl font-extrabold select-none leading-none">
                   Do you know this guy?
                 </h2>
-              </div>
 
-              {/* Daniel Card */}
-              <div className="w-full flex-1 flex flex-col items-center justify-center my-4">
-                <div className="border-2 border-black rounded-3xl p-4 bg-white flex flex-col items-center w-44 select-none shadow-none relative">
+                <div className="border-2 border-black rounded-3xl p-4 bg-white flex flex-col items-center w-44 select-none shadow-none relative my-2">
                   <div className="relative w-32 h-32 border-2 border-black rounded-2xl overflow-hidden bg-neutral-100 flex items-center justify-center">
                     <img src="/Images/Daniel face shot.jpeg" alt="Daniel" className="absolute inset-0 w-full h-full object-cover" />
                   </div>
@@ -713,7 +710,7 @@ function ProposalAppContent() {
                   <span className="font-extrabold text-base text-black mt-0.5">Daniel</span>
                 </div>
 
-                <div className="h-10 mt-4 flex items-center">
+                <div className="h-10 flex items-center">
                   <AnimatePresence mode="wait">
                     {knowGuyStatus === "yes" && (
                       <motion.p
@@ -736,50 +733,48 @@ function ProposalAppContent() {
                   </AnimatePresence>
                 </div>
               </div>
+            </div>
 
-              {/* YES / NO Choices */}
-              <div className="w-full max-w-md shrink-0 flex flex-col gap-2 select-none">
-                <AnimatePresence mode="wait">
-                  {knowGuyStatus !== "yes" ? (
-                    <motion.div
-                      key="options"
-                      className="w-full flex gap-3"
-                      exit={{ opacity: 0, y: -5 }}
+            <div className="w-full max-w-md shrink-0 flex flex-col gap-2 select-none">
+              <AnimatePresence mode="wait">
+                {knowGuyStatus !== "yes" ? (
+                  <motion.div
+                    key="options"
+                    className="w-full flex gap-3"
+                    exit={{ opacity: 0, y: -5 }}
+                  >
+                    <button
+                      onClick={handleKnowGuyYes}
+                      className="flex-1 py-4 bg-black text-white hover:bg-neutral-900 font-bold rounded-full cursor-pointer transition active:scale-95 text-base"
                     >
-                      <button
-                        onClick={handleKnowGuyYes}
-                        className="flex-1 py-4 bg-black text-white hover:bg-neutral-900 font-bold rounded-full cursor-pointer transition active:scale-95 text-base"
-                      >
-                        YES ❤️
-                      </button>
-                      <motion.button
-                        onClick={handleKnowGuyNo}
-                        animate={knowGuyShaking ? { x: [-8, 8, -6, 6, -3, 3, 0] } : {}}
-                        transition={{ duration: 0.3 }}
-                        className="flex-1 py-4 border-2 border-black bg-white hover:bg-neutral-50 text-black font-bold rounded-full cursor-pointer transition"
-                      >
-                        NO 🙃
-                      </motion.button>
-                    </motion.div>
-                  ) : (
-                    <div className="flex flex-col items-center gap-2">
-                      <motion.button
-                        key="continue"
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        onClick={() => scrollToSection(3)}
-                        className="w-full py-4 bg-black text-white hover:bg-neutral-900 font-extrabold rounded-full cursor-pointer flex items-center justify-center gap-2 text-base"
-                      >
-                        Continue
-                        <ChevronDown size={18} />
-                      </motion.button>
-                      <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
-                        Identity verified. Let&apos;s check your credentials next... 👇
-                      </p>
-                    </div>
-                  )}
-                </AnimatePresence>
-              </div>
+                      YES ❤️
+                    </button>
+                    <motion.button
+                      onClick={handleKnowGuyNo}
+                      animate={knowGuyShaking ? { x: [-8, 8, -6, 6, -3, 3, 0] } : {}}
+                      transition={{ duration: 0.3 }}
+                      className="flex-1 py-4 border-2 border-black bg-white hover:bg-neutral-50 text-black font-bold rounded-full cursor-pointer transition"
+                    >
+                      NO 🙃
+                    </motion.button>
+                  </motion.div>
+                ) : (
+                  <div className="flex flex-col items-center gap-2 w-full">
+                    <motion.button
+                      key="continue"
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      onClick={() => scrollToSection(3)}
+                      className="w-full py-4 bg-black text-white hover:bg-neutral-900 font-extrabold rounded-full cursor-pointer flex items-center justify-center gap-2 text-base"
+                    >
+                      Next slide please... 🥱
+                    </motion.button>
+                    <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
+                      Identity verified. Let&apos;s check your credentials next... 👇
+                    </p>
+                  </div>
+                )}
+              </AnimatePresence>
             </div>
           </ViewportSection>
         )}
@@ -787,16 +782,14 @@ function ProposalAppContent() {
         {/* --- SCREEN 3: IS THIS BEAUTIFUL DAMSEL YOU? --- */}
         {unlockedSection >= 3 && (
           <ViewportSection id="section-3" isActive={activeSection === 3}>
-            <div className="flex-1 flex flex-col justify-between items-center w-full py-4 text-black text-center">
-              <div className="text-center shrink-0">
-                <span className="text-xs uppercase tracking-widest font-mono text-neutral-400">VERIFICATION PART II</span>
-                <h2 className="text-2xl md:text-3xl font-extrabold mt-2 select-none">
+            <div className="w-full flex-1 overflow-y-auto no-scrollbar flex flex-col items-center py-2 min-h-0">
+              <div className="my-auto w-full flex flex-col items-center justify-center gap-4 text-center">
+                <span className="text-xs uppercase tracking-widest font-mono text-neutral-400 select-none">VERIFICATION PART II</span>
+                <h2 className="text-2xl md:text-3xl font-extrabold select-none leading-none">
                   Is this beautiful damsel you?
                 </h2>
-              </div>
 
-              <div className="w-full flex-1 flex flex-col items-center justify-center my-4">
-                <div className="border-2 border-black rounded-3xl p-4 bg-white flex flex-col items-center w-44 select-none shadow-none relative">
+                <div className="border-2 border-black rounded-3xl p-4 bg-white flex flex-col items-center w-44 select-none shadow-none relative my-2">
                   <div className="relative w-32 h-32 border-2 border-black rounded-2xl overflow-hidden bg-neutral-100 flex items-center justify-center">
                     <img src="/Images/Becky Face.jpeg" alt="Becky" className="absolute inset-0 w-full h-full object-cover" />
                   </div>
@@ -806,7 +799,7 @@ function ProposalAppContent() {
                   <span className="font-extrabold text-base text-black mt-0.5">Becky</span>
                 </div>
 
-                <div className="h-14 mt-3 flex items-center px-4 max-w-xs text-center">
+                <div className="h-14 flex items-center px-4 max-w-xs text-center select-none">
                   <AnimatePresence mode="wait">
                     {damselStatus === "yes" && (
                       <motion.p
@@ -829,188 +822,186 @@ function ProposalAppContent() {
                   </AnimatePresence>
                 </div>
               </div>
+            </div>
 
-              {/* YES / NO Choices */}
-              <div className="w-full max-w-md shrink-0 flex flex-col gap-2 select-none">
-                <AnimatePresence mode="wait">
-                  {damselStatus !== "yes" ? (
-                    <motion.div
-                      key="options"
-                      className="w-full flex gap-3"
-                      exit={{ opacity: 0, y: -5 }}
+            {/* YES / NO Choices */}
+            <div className="w-full max-w-md shrink-0 flex flex-col gap-2 select-none">
+              <AnimatePresence mode="wait">
+                {damselStatus !== "yes" ? (
+                  <motion.div
+                    key="options"
+                    className="w-full flex gap-3"
+                    exit={{ opacity: 0, y: -5 }}
+                  >
+                    <button
+                      onClick={handleDamselYes}
+                      className="flex-1 py-4 bg-black text-white hover:bg-neutral-900 font-bold rounded-full cursor-pointer transition active:scale-95 text-base"
                     >
-                      <button
-                        onClick={handleDamselYes}
-                        className="flex-1 py-4 bg-black text-white hover:bg-neutral-900 font-bold rounded-full cursor-pointer transition active:scale-95 text-base"
-                      >
-                        YES, it&apos;s me! ✨
-                      </button>
-                      <motion.button
-                        onClick={handleDamselNo}
-                        animate={damselShaking ? { x: [-8, 8, -6, 6, -3, 3, 0] } : {}}
-                        transition={{ duration: 0.3 }}
-                        className="flex-1 py-4 border-2 border-black bg-white hover:bg-neutral-50 text-black font-bold rounded-full cursor-pointer transition"
-                      >
-                        NO, who&apos;s that? 🙃
-                      </motion.button>
-                    </motion.div>
-                  ) : (
-                    <div className="flex flex-col items-center gap-2">
-                      <motion.button
-                        key="continue"
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        onClick={() => scrollToSection(4)}
-                        className="w-full py-4 bg-black text-white hover:bg-neutral-900 font-extrabold rounded-full cursor-pointer flex items-center justify-center gap-2 text-base"
-                      >
-                        Continue
-                        <ChevronDown size={18} />
-                      </motion.button>
-                      <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
-                        Both identities verified. Let&apos;s examine the archive folder next... 👇
-                      </p>
-                    </div>
-                  )}
-                </AnimatePresence>
-              </div>
+                      YES, it&apos;s me! ✨
+                    </button>
+                    <motion.button
+                      onClick={handleDamselNo}
+                      animate={damselShaking ? { x: [-8, 8, -6, 6, -3, 3, 0] } : {}}
+                      transition={{ duration: 0.3 }}
+                      className="flex-1 py-4 border-2 border-black bg-white hover:bg-neutral-50 text-black font-bold rounded-full cursor-pointer transition"
+                    >
+                      NO, who&apos;s that? 🙃
+                    </motion.button>
+                  </motion.div>
+                ) : (
+                  <div className="flex flex-col items-center gap-2 w-full">
+                    <motion.button
+                      key="continue"
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      onClick={() => scrollToSection(4)}
+                      className="w-full py-4 bg-black text-white hover:bg-neutral-900 font-extrabold rounded-full cursor-pointer flex items-center justify-center gap-2 text-base"
+                    >
+                      Keep digging... 🕵️
+                    </motion.button>
+                    <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
+                      Both identities verified. Let&apos;s examine the archive folder next... 👇
+                    </p>
+                  </div>
+                )}
+              </AnimatePresence>
             </div>
           </ViewportSection>
         )}
 
-        {/* --- SCREEN 4: COUPLES PHOTO SWIPER --- */}
+        {/* --- SCREEN 4: COUPLES PHOTO SWIPER (With internal scroll boundaries) --- */}
         {unlockedSection >= 4 && (
           <ViewportSection id="section-4" isActive={activeSection === 4}>
-            <div className="flex-1 flex flex-col justify-between items-center w-full py-4 text-black text-center">
-              <div className="text-center shrink-0">
-                <span className="text-xs uppercase tracking-widest font-mono text-neutral-400">VERIFICATION PART III</span>
-                <h2 className="text-2xl md:text-3xl font-extrabold mt-2 select-none">
+            <div className="w-full flex-1 overflow-y-auto no-scrollbar flex flex-col items-center py-2 min-h-0">
+              <div className="my-auto w-full flex flex-col items-center justify-center gap-2 text-center">
+                <span className="text-xs uppercase tracking-widest font-mono text-neutral-400 select-none">VERIFICATION PART III</span>
+                <h2 className="text-2xl md:text-3xl font-extrabold select-none leading-none">
                   Our Memory Lane
                 </h2>
-                <p className="text-xs text-neutral-400 font-mono mt-0.5 select-none">
+                <p className="text-xs text-neutral-400 font-mono select-none">
                   SWIPE CARDS RIGHT OR LEFT TO VERIFY
                 </p>
-              </div>
 
-              <div className="w-full flex-1 flex items-center justify-center my-2 relative">
-                {carouselIndex < CAROUSEL_IMAGES.length && (
-                  <motion.div
-                    animate={{ y: [0, -4, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                    className="absolute -top-6 text-xs font-bold bg-black text-white border border-black px-3.5 py-1 rounded-full font-mono uppercase tracking-wider z-40 pointer-events-none"
-                  >
-                    Swipe left/right to browse deck 👆
-                  </motion.div>
-                )}
-
-                <AnimatePresence>
-                  {CAROUSEL_IMAGES.map((img, idx) => {
-                    if (idx < carouselIndex) return null;
-                    if (idx > carouselIndex + 2) return null;
-                    
-                    const isTop = idx === carouselIndex;
-                    const relIndex = idx - carouselIndex;
-
-                    let cardRotate = 0;
-                    let cardX = 0;
-                    let cardY = 0;
-                    let cardScale = 1;
-
-                    if (relIndex === 0) {
-                      cardRotate = 0;
-                      cardX = 0;
-                      cardY = 0;
-                      cardScale = 1;
-                    } else if (relIndex === 1) {
-                      cardRotate = -5;
-                      cardX = -12;
-                      cardY = 8;
-                      cardScale = 0.95;
-                    } else if (relIndex === 2) {
-                      cardRotate = 5;
-                      cardX = 12;
-                      cardY = 16;
-                      cardScale = 0.90;
-                    }
-
-                    return (
-                      <motion.div
-                        key={img.id}
-                        className="absolute w-64 h-[300px] bg-white border-2 border-black rounded-3xl p-3 flex flex-col justify-between items-center shadow-none cursor-grab active:cursor-grabbing"
-                        style={{
-                          zIndex: 30 - idx,
-                          originX: 0.5,
-                          originY: 0.5,
-                        }}
-                        initial={{ scale: cardScale, y: cardY + 20, rotate: cardRotate, opacity: 0 }}
-                        animate={{ 
-                          scale: cardScale, 
-                          y: cardY, 
-                          x: isTop ? 0 : cardX, 
-                          rotate: cardRotate,
-                          opacity: 1
-                        }}
-                        exit={{ x: 280, rotate: 20, opacity: 0 }}
-                        drag={isTop ? "x" : false}
-                        dragConstraints={{ left: 0, right: 0 }}
-                        onDragEnd={(_, info) => {
-                          if (info.offset.x > 90) {
-                            handleCardSwipe();
-                          } else if (info.offset.x < -90) {
-                            handleCardSwipe();
-                          }
-                        }}
-                      >
-                        <div className="w-full flex-1 border-2 border-black rounded-2xl overflow-hidden bg-neutral-100 flex items-center justify-center relative">
-                          <img src={img.src} alt={img.label} className="absolute inset-0 w-full h-full object-cover" />
-                        </div>
-                        <div className="text-center mt-2.5">
-                          <span className="text-[9px] font-mono text-neutral-400 font-bold uppercase tracking-wider">
-                            Memory {img.id}/3
-                          </span>
-                          <p className="font-extrabold text-sm text-black">{img.label}</p>
-                        </div>
-                      </motion.div>
-                    );
-                  })}
-
-                  {carouselIndex >= CAROUSEL_IMAGES.length && (
+                <div className="w-full flex items-center justify-center my-3 relative min-h-[300px]">
+                  {carouselIndex < CAROUSEL_IMAGES.length && (
                     <motion.div
-                      initial={{ opacity: 0, scale: 0.92 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      className="w-64 p-5 bg-accent/10 border-2 border-black rounded-3xl flex flex-col items-center justify-center gap-3 select-none"
+                      animate={{ y: [0, -4, 0] }}
+                      transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                      className="absolute -top-6 text-xs font-bold bg-black text-white border border-black px-3.5 py-1 rounded-full font-mono uppercase tracking-wider z-40 pointer-events-none"
                     >
-                      <Camera size={36} />
-                      <h4 className="font-extrabold text-base text-black leading-snug">
-                        See? Even the pixels know how good we look together.
-                      </h4>
-                      <p className="text-xs font-bold text-neutral-700">
-                        Aren&apos;t we lovely? 📸✨
-                      </p>
+                      Swipe left/right to browse deck 👆
                     </motion.div>
                   )}
-                </AnimatePresence>
-              </div>
 
-              <div className="w-full max-w-md shrink-0 select-none flex flex-col items-center gap-2">
-                <button
-                  onClick={() => {
-                    if (synth) synth.playPop();
-                    scrollToSection(5);
-                  }}
-                  disabled={carouselIndex < CAROUSEL_IMAGES.length}
-                  className={`w-full py-4 rounded-full font-extrabold text-base transition duration-300 active:scale-95 flex items-center justify-center gap-2 ${
-                    carouselIndex >= CAROUSEL_IMAGES.length
-                      ? "bg-black text-white hover:bg-neutral-900 cursor-pointer"
-                      : "bg-neutral-200 text-neutral-400 cursor-not-allowed"
-                  }`}
-                >
-                  Continue
-                  <ChevronDown size={18} />
-                </button>
-                <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
-                  Archive verified. Now read the legal warning guidelines... 👇
-                </p>
+                  <AnimatePresence>
+                    {CAROUSEL_IMAGES.map((img, idx) => {
+                      if (idx < carouselIndex) return null;
+                      if (idx > carouselIndex + 2) return null;
+                      
+                      const isTop = idx === carouselIndex;
+                      const relIndex = idx - carouselIndex;
+
+                      let cardRotate = 0;
+                      let cardX = 0;
+                      let cardY = 0;
+                      let cardScale = 1;
+
+                      if (relIndex === 0) {
+                        cardRotate = 0;
+                        cardX = 0;
+                        cardY = 0;
+                        cardScale = 1;
+                      } else if (relIndex === 1) {
+                        cardRotate = -5;
+                        cardX = -12;
+                        cardY = 8;
+                        cardScale = 0.95;
+                      } else if (relIndex === 2) {
+                        cardRotate = 5;
+                        cardX = 12;
+                        cardY = 16;
+                        cardScale = 0.90;
+                      }
+
+                      return (
+                        <motion.div
+                          key={img.id}
+                          className="absolute w-64 h-[280px] bg-white border-2 border-black rounded-3xl p-3 flex flex-col justify-between items-center shadow-none cursor-grab active:cursor-grabbing"
+                          style={{
+                            zIndex: 30 - idx,
+                            originX: 0.5,
+                            originY: 0.5,
+                          }}
+                          initial={{ scale: cardScale, y: cardY + 20, rotate: cardRotate, opacity: 0 }}
+                          animate={{ 
+                            scale: cardScale, 
+                            y: cardY, 
+                            x: isTop ? 0 : cardX, 
+                            rotate: cardRotate,
+                            opacity: 1
+                          }}
+                          exit={{ x: 280, rotate: 20, opacity: 0 }}
+                          drag={isTop ? "x" : false}
+                          dragConstraints={{ left: 0, right: 0 }}
+                          onDragEnd={(_, info) => {
+                            if (info.offset.x > 90) {
+                              handleCardSwipe();
+                            } else if (info.offset.x < -90) {
+                              handleCardSwipe();
+                            }
+                          }}
+                        >
+                          <div className="w-full flex-1 border-2 border-black rounded-2xl overflow-hidden bg-neutral-100 flex items-center justify-center relative">
+                            <img src={img.src} alt={img.label} className="absolute inset-0 w-full h-full object-cover" />
+                          </div>
+                          <div className="text-center mt-2.5">
+                            <span className="text-[9px] font-mono text-neutral-400 font-bold uppercase tracking-wider">
+                              Memory {img.id}/3
+                            </span>
+                            <p className="font-extrabold text-xs text-black">{img.label}</p>
+                          </div>
+                        </motion.div>
+                      );
+                    })}
+
+                    {carouselIndex >= CAROUSEL_IMAGES.length && (
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.92 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="w-64 p-5 bg-accent/10 border-2 border-black rounded-3xl flex flex-col items-center justify-center gap-3 select-none"
+                      >
+                        <Camera size={36} />
+                        <h4 className="font-extrabold text-base text-black leading-snug">
+                          See? Even the AI model knows how good we look together.
+                        </h4>
+                        <p className="text-xs font-bold text-neutral-700">
+                          Aren&apos;t we lovely? 📸✨
+                        </p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
               </div>
+            </div>
+
+            <div className="w-full max-w-md shrink-0 select-none flex flex-col items-center gap-2">
+              <button
+                onClick={() => {
+                  if (synth) synth.playPop();
+                  scrollToSection(5);
+                }}
+                disabled={carouselIndex < CAROUSEL_IMAGES.length}
+                className={`w-full py-4 rounded-full font-extrabold text-base transition duration-300 active:scale-95 flex items-center justify-center gap-2 ${
+                  carouselIndex >= CAROUSEL_IMAGES.length
+                    ? "bg-black text-white hover:bg-neutral-900 cursor-pointer"
+                    : "bg-neutral-200 text-neutral-400 cursor-not-allowed"
+                }`}
+              >
+                Check warnings... 💀
+              </button>
+              <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
+                Archive verified. Now read the legal warning guidelines... 👇
+              </p>
             </div>
           </ViewportSection>
         )}
@@ -1018,71 +1009,72 @@ function ProposalAppContent() {
         {/* --- SCREEN 5: WARNING LEGAL CHECKBOX --- */}
         {unlockedSection >= 5 && (
           <ViewportSection id="section-5" isActive={activeSection === 5}>
-            <div className="flex-1 flex flex-col justify-between items-center w-full py-4 text-black">
-              <div className="flex items-center gap-2 border-2 border-black rounded-full px-4 py-2 font-mono text-xs uppercase bg-red-50 text-red-700 shrink-0">
-                <ShieldAlert size={14} className="animate-pulse" />
-                Legal Advisory
-              </div>
-
-              <div className="w-full flex-1 flex flex-col md:flex-row items-center justify-center gap-8 my-6">
-                <div className="shrink-0">
-                  <Illustration name="police" />
+            <div className="w-full flex-1 overflow-y-auto no-scrollbar flex flex-col items-center py-2 min-h-0">
+              <div className="my-auto w-full flex flex-col items-center justify-center gap-4 text-center">
+                <div className="flex items-center gap-2 border-2 border-black rounded-full px-4 py-2 font-mono text-xs uppercase bg-red-50 text-red-700 shrink-0">
+                  <ShieldAlert size={14} className="animate-pulse" />
+                  Legal Advisory
                 </div>
 
-                <div className="flex-1 max-w-md text-left flex flex-col gap-4">
-                  <h2 className="text-4xl font-extrabold tracking-tight select-none">
-                    WARNING 🛑
-                  </h2>
-                  <div className="font-medium text-lg leading-relaxed text-neutral-700 select-none">
-                    <p className="font-bold text-black mb-1">Before continuing...</p>
-                    <ul className="list-disc pl-5 space-y-1.5 text-base">
-                      <li>You agree to laugh at least once.</li>
-                      <li>Failure to laugh may result in excessive smiling.</li>
-                    </ul>
+                <div className="w-full flex-col md:flex-row items-center justify-center gap-8 my-2 flex">
+                  <div className="shrink-0">
+                    <Illustration name="police" />
                   </div>
 
-                  <motion.div
-                    animate={wiggleCheckbox ? { x: [-8, 8, -6, 6, -3, 3, 0] } : {}}
-                    transition={{ duration: 0.25 }}
-                    onClick={handleCheckboxClick}
-                    className={`mt-4 p-4 border-2 rounded-2xl flex items-center gap-4 cursor-pointer select-none transition ${
-                      warningChecked 
-                        ? "border-black bg-accent/10" 
-                        : "border-neutral-300 hover:border-black"
-                    }`}
-                  >
-                    <div className={`w-6 h-6 rounded-md border-2 border-black flex items-center justify-center transition-colors ${
-                      warningChecked ? "bg-black text-white" : "bg-white"
-                    }`}>
-                      {warningChecked && <Check size={14} strokeWidth={3} />}
+                  <div className="flex-1 max-w-md text-left flex flex-col gap-4">
+                    <h2 className="text-4xl font-extrabold tracking-tight select-none leading-none">
+                      WARNING 🛑
+                    </h2>
+                    <div className="font-medium text-lg leading-relaxed text-neutral-700 select-none">
+                      <p className="font-bold text-black mb-1">Before continuing...</p>
+                      <ul className="list-disc pl-5 space-y-1.5 text-base">
+                        <li>You agree to laugh at least once.</li>
+                        <li>Failure to laugh may result in excessive smiling.</li>
+                      </ul>
                     </div>
-                    <span className="font-bold text-sm text-neutral-800">
-                      I solemnly promise to smile. 😊
-                    </span>
-                  </motion.div>
+
+                    <motion.div
+                      animate={wiggleCheckbox ? { x: [-8, 8, -6, 6, -3, 3, 0] } : {}}
+                      transition={{ duration: 0.25 }}
+                      onClick={handleCheckboxClick}
+                      className={`mt-2 p-4 border-2 rounded-2xl flex items-center gap-4 cursor-pointer select-none transition ${
+                        warningChecked 
+                          ? "border-black bg-accent/10" 
+                          : "border-neutral-300 hover:border-black"
+                      }`}
+                    >
+                      <div className={`w-6 h-6 rounded-md border-2 border-black flex items-center justify-center transition-colors ${
+                        warningChecked ? "bg-black text-white" : "bg-white"
+                      }`}>
+                        {warningChecked && <Check size={14} strokeWidth={3} />}
+                      </div>
+                      <span className="font-bold text-sm text-neutral-800">
+                        I solemnly promise to smile. 😊
+                      </span>
+                    </motion.div>
+                  </div>
                 </div>
               </div>
+            </div>
 
-              <div className="w-full max-w-md shrink-0 flex flex-col items-center gap-2">
-                <button
-                  onClick={() => {
-                    if (synth) synth.playPop();
-                    scrollToSection(6);
-                  }}
-                  disabled={!warningChecked}
-                  className={`w-full py-4 rounded-full font-extrabold text-base transition duration-300 active:scale-95 flex items-center justify-center gap-2 ${
-                    warningChecked
-                      ? "bg-black text-white hover:bg-neutral-900 cursor-pointer"
-                      : "bg-neutral-200 text-neutral-400 cursor-not-allowed"
-                  }`}
-                >
-                  Continue
-                  <ChevronDown size={18} />
-                </button>
-                <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
-                  Agreement signed. Preparing personality scan... 👇
-                </p>
-              </div>
+            <div className="w-full max-w-md shrink-0 flex flex-col items-center gap-2 select-none">
+              <button
+                onClick={() => {
+                  if (synth) synth.playPop();
+                  scrollToSection(6);
+                }}
+                disabled={!warningChecked}
+                className={`w-full py-4 rounded-full font-extrabold text-base transition duration-300 active:scale-95 flex items-center justify-center gap-2 ${
+                  warningChecked
+                    ? "bg-black text-white hover:bg-neutral-900 cursor-pointer"
+                    : "bg-neutral-200 text-neutral-400 cursor-not-allowed"
+                }`}
+              >
+                Scan anyway... 💅
+              </button>
+              <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
+                Agreement signed. Preparing personality scan... 👇
+              </p>
             </div>
           </ViewportSection>
         )}
@@ -1090,60 +1082,59 @@ function ProposalAppContent() {
         {/* --- SCREEN 6: SCANNER --- */}
         {unlockedSection >= 6 && (
           <ViewportSection id="section-6" isActive={activeSection === 6}>
-            <div className="flex-1 flex flex-col justify-between items-center w-full py-4 text-black">
-              <div className="text-center shrink-0">
-                <span className="text-xs uppercase tracking-widest font-mono text-neutral-400">BIOMETRICS</span>
-                <h2 className="text-3xl md:text-4xl font-extrabold mt-2 select-none">
+            <div className="w-full flex-1 overflow-y-auto no-scrollbar flex flex-col items-center py-2 min-h-0">
+              <div className="my-auto w-full flex flex-col items-center justify-center gap-4 text-center">
+                <span className="text-xs uppercase tracking-widest font-mono text-neutral-400 select-none">BIOMETRICS</span>
+                <h2 className="text-3xl font-extrabold select-none leading-none">
                   Scanning Personality...
                 </h2>
-              </div>
 
-              <div className="w-full flex-1 flex flex-col md:flex-row items-center justify-center gap-8 my-6">
-                <div className="shrink-0">
-                  <Illustration name="robot" />
-                </div>
-
-                <div className="w-full max-w-sm flex flex-col gap-4 text-left font-mono">
-                  <div>
-                    <div className="flex justify-between text-xs font-bold mb-1 text-neutral-500">
-                      <span>{scanMessage}</span>
-                      <span>{scanProgress}%</span>
-                    </div>
-                    <div className="w-full h-4 bg-neutral-100 rounded-full border-2 border-black overflow-hidden relative">
-                      <motion.div
-                        className="h-full bg-accent"
-                        style={{ width: `${scanProgress}%` }}
-                      />
-                    </div>
+                <div className="w-full flex-col md:flex-row items-center justify-center gap-8 my-2 flex">
+                  <div className="shrink-0">
+                    <Illustration name="robot" />
                   </div>
 
-                  <AnimatePresence>
-                    {scanDone && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 15 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, ease: "easeOut" }}
-                        className="border-2 border-black rounded-2xl p-5 bg-white space-y-3 shadow-none text-sm font-sans"
-                      >
-                        <p className="font-mono text-xs uppercase tracking-wider text-neutral-400 font-bold border-b pb-1.5">
-                          Scan Results:
-                        </p>
-                        <div className="flex justify-between items-center">
-                          <span className="font-semibold text-neutral-600">Humour</span>
-                          <span className="font-mono font-bold text-base text-black">
-                            <CountUp max={100} />%
-                          </span>
-                        </div>
-                        <div className="flex justify-between items-center">
-                          <span className="font-semibold text-neutral-600">Kindness</span>
-                          <span className="font-mono font-bold text-base text-black">
-                            <CountUp max={100} delay={400} />%
-                          </span>
-                        </div>
-                        <div className="flex justify-between items-center">
-                          <span className="font-semibold text-neutral-600">Beauty</span>
-                          <span className="font-mono font-bold text-base text-black">
-                            <CountUp max={100} delay={800} />%
+                  <div className="w-full max-w-sm flex flex-col gap-4 text-left font-mono">
+                    <div>
+                      <div className="flex justify-between text-xs font-bold mb-1 text-neutral-500">
+                        <span>{scanMessage}</span>
+                        <span>{scanProgress}%</span>
+                      </div>
+                      <div className="w-full h-4 bg-neutral-100 rounded-full border-2 border-black overflow-hidden relative">
+                        <motion.div
+                          className="h-full bg-accent"
+                          style={{ width: `${scanProgress}%` }}
+                        />
+                      </div>
+                    </div>
+
+                    <AnimatePresence>
+                      {scanDone && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 15 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.6, ease: "easeOut" }}
+                          className="border-2 border-black rounded-2xl p-5 bg-white space-y-3 shadow-none text-sm font-sans"
+                        >
+                          <p className="font-mono text-xs uppercase tracking-wider text-neutral-400 font-bold border-b pb-1.5">
+                            Scan Results:
+                          </p>
+                          <div className="flex justify-between items-center">
+                            <span className="font-semibold text-neutral-600">Humour</span>
+                            <span className="font-mono font-bold text-base text-black">
+                              <CountUp max={100} />%
+                            </span>
+                          </div>
+                          <div className="flex justify-between items-center">
+                            <span className="font-semibold text-neutral-600">Kindness</span>
+                            <span className="font-mono font-bold text-base text-black">
+                              <CountUp max={100} delay={400} />%
+                            </span>
+                          </div>
+                          <div className="flex justify-between items-center">
+                            <span className="font-semibold text-neutral-600">Beauty</span>
+                            <span className="font-mono font-bold text-base text-black">
+                              <CountUp max={100} delay={800} />%
                           </span>
                         </div>
                         <div className="flex justify-between items-center text-accent-dark">
@@ -1157,43 +1148,42 @@ function ProposalAppContent() {
                   </AnimatePresence>
                 </div>
               </div>
-
-              <div className="w-full max-w-md shrink-0 flex flex-col items-center gap-2">
-                <button
-                  onClick={() => {
-                    if (synth) synth.playPop();
-                    scrollToSection(7);
-                  }}
-                  disabled={!scanDone}
-                  className={`w-full py-4 rounded-full font-extrabold text-base transition duration-300 active:scale-95 flex items-center justify-center gap-2 ${
-                    scanDone
-                      ? "bg-black text-white hover:bg-neutral-900 cursor-pointer"
-                      : "bg-neutral-200 text-neutral-400 cursor-not-allowed"
-                  }`}
-                >
-                  Continue
-                  <ChevronDown size={18} />
-                </button>
-                <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
-                  Scanner completed. Preparing narrative download... 👇
-                </p>
-              </div>
             </div>
-          </ViewportSection>
-        )}
+          </div>
 
-        {/* --- SCREEN 7: FIRST-PERSON CONFESSION PART 1 --- */}
-        {unlockedSection >= 7 && (
-          <ViewportSection id="section-7" isActive={activeSection === 7}>
-            <div className="flex-1 flex flex-col justify-between items-center w-full py-4 text-black">
-              <div className="text-center shrink-0">
-                <span className="text-xs uppercase tracking-widest font-mono text-neutral-400">PART I</span>
-                <h2 className="text-3xl md:text-4xl font-extrabold mt-2 select-none">
-                  My Confession
-                </h2>
-              </div>
+          <div className="w-full max-w-md shrink-0 flex flex-col items-center gap-2 select-none">
+            <button
+              onClick={() => {
+                if (synth) synth.playPop();
+                scrollToSection(7);
+              }}
+              disabled={!scanDone}
+              className={`w-full py-4 rounded-full font-extrabold text-base transition duration-300 active:scale-95 flex items-center justify-center gap-2 ${
+                scanDone
+                  ? "bg-black text-white hover:bg-neutral-900 cursor-pointer"
+                  : "bg-neutral-200 text-neutral-400 cursor-not-allowed"
+              }`}
+            >
+              Whatever, next... 🙄
+            </button>
+            <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
+              Scanner completed. Preparing narrative download... 👇
+            </p>
+          </div>
+        </ViewportSection>
+      )}
 
-              <div className="w-full flex-1 flex flex-col md:flex-row items-center justify-center gap-8 my-6">
+      {/* --- SCREEN 7: FIRST-PERSON CONFESSION PART 1 --- */}
+      {unlockedSection >= 7 && (
+        <ViewportSection id="section-7" isActive={activeSection === 7}>
+          <div className="w-full flex-1 overflow-y-auto no-scrollbar flex flex-col items-center py-2 min-h-0">
+            <div className="my-auto w-full flex flex-col items-center justify-center gap-4 text-center">
+              <span className="text-xs uppercase tracking-widest font-mono text-neutral-400 select-none">PART I</span>
+              <h2 className="text-3xl md:text-4xl font-extrabold select-none leading-none">
+                My Confession
+              </h2>
+
+              <div className="w-full flex-col md:flex-row items-center justify-center gap-8 my-2 flex">
                 <div className="shrink-0">
                   <Illustration name="thinking" />
                 </div>
@@ -1242,65 +1232,64 @@ function ProposalAppContent() {
                   </motion.div>
                 </div>
               </div>
-
-              <div className="w-full max-w-md shrink-0 flex flex-col items-center gap-2">
-                <button
-                  onClick={() => {
-                    if (synth) synth.playPop();
-                    scrollToSection(8);
-                  }}
-                  className="w-full py-4 rounded-full bg-black text-white hover:bg-neutral-900 font-extrabold text-base transition duration-300 active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
-                >
-                  Continue
-                  <ChevronDown size={18} />
-                </button>
-                <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
-                  Part I read. Let&apos;s reveal the truth in Part II... 👇
-                </p>
-              </div>
             </div>
-          </ViewportSection>
-        )}
+          </div>
 
-        {/* --- SCREEN 8: CONFESSION PART 2 --- */}
-        {unlockedSection >= 8 && (
-          <ViewportSection id="section-8" isActive={activeSection === 8}>
-            <div className="flex-1 flex flex-col justify-between items-center w-full py-4 text-black relative">
-              {activeSection === 8 && (
-                <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
-                  {driftingEmojis.map((emoji, i) => (
-                    <motion.div
-                      key={i}
-                      className="absolute text-2xl opacity-20"
-                      style={{
-                        top: `${15 + (i * 12)}%`,
-                        left: `${5 + (i * 14)}%`,
-                      }}
-                      animate={{
-                        y: [0, -40, 0],
-                        x: [0, Math.sin(i) * 20, 0],
-                        scale: [1, 1.15, 1],
-                      }}
-                      transition={{
-                        duration: 5 + (i % 3),
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                      }}
-                    >
-                      {emoji}
-                    </motion.div>
-                  ))}
-                </div>
-              )}
+          <div className="w-full max-w-md shrink-0 flex flex-col items-center gap-2 select-none">
+            <button
+              onClick={() => {
+                if (synth) synth.playPop();
+                scrollToSection(8);
+              }}
+              className="w-full py-4 rounded-full bg-black text-white hover:bg-neutral-900 font-extrabold text-base transition duration-300 active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
+            >
+              Keep reading... 🍿
+            </button>
+            <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
+              Part I read. Let&apos;s reveal the truth in Part II... 👇
+            </p>
+          </div>
+        </ViewportSection>
+      )}
 
-              <div className="text-center shrink-0 z-10">
-                <span className="text-xs uppercase tracking-widest font-mono text-neutral-400">PART II</span>
-                <h2 className="text-3xl md:text-4xl font-extrabold mt-2 select-none">
-                  The Actual Truth
-                </h2>
+      {/* --- SCREEN 8: CONFESSION PART 2 --- */}
+      {unlockedSection >= 8 && (
+        <ViewportSection id="section-8" isActive={activeSection === 8}>
+          <div className="w-full flex-1 overflow-y-auto no-scrollbar flex flex-col items-center py-2 min-h-0 relative">
+            {activeSection === 8 && (
+              <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+                {driftingEmojis.map((emoji, i) => (
+                  <motion.div
+                    key={i}
+                    className="absolute text-2xl opacity-20"
+                    style={{
+                      top: `${15 + (i * 12)}%`,
+                      left: `${5 + (i * 14)}%`,
+                    }}
+                    animate={{
+                      y: [0, -40, 0],
+                      x: [0, Math.sin(i) * 20, 0],
+                      scale: [1, 1.15, 1],
+                    }}
+                    transition={{
+                      duration: 5 + (i % 3),
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                  >
+                    {emoji}
+                  </motion.div>
+                ))}
               </div>
+            )}
 
-              <div className="w-full flex-1 flex flex-col md:flex-row items-center justify-center gap-8 my-6 z-10">
+            <div className="my-auto w-full flex flex-col items-center justify-center gap-4 text-center z-10">
+              <span className="text-xs uppercase tracking-widest font-mono text-neutral-400 select-none">PART II</span>
+              <h2 className="text-3xl md:text-4xl font-extrabold select-none leading-none">
+                The Actual Truth
+              </h2>
+
+              <div className="w-full flex-col md:flex-row items-center justify-center gap-8 my-2 flex">
                 <div className="shrink-0">
                   <Illustration name="love" />
                 </div>
@@ -1352,38 +1341,37 @@ function ProposalAppContent() {
                   </motion.div>
                 </div>
               </div>
-
-              <div className="w-full max-w-md shrink-0 z-10 flex flex-col items-center gap-2">
-                <button
-                  onClick={() => {
-                    if (synth) synth.playPop();
-                    scrollToSection(9);
-                  }}
-                  className="w-full py-4 rounded-full bg-black text-white hover:bg-neutral-900 font-extrabold text-base transition duration-300 active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
-                >
-                  Continue
-                  <ChevronDown size={18} />
-                </button>
-                <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
-                  The truth is out. Let&apos;s face the legal verdict... 👇
-                </p>
-              </div>
             </div>
-          </ViewportSection>
-        )}
+          </div>
 
-        {/* --- SCREEN 9: COURTROOM VERDICT --- */}
-        {unlockedSection >= 9 && (
-          <ViewportSection id="section-9" isActive={activeSection === 9}>
-            <div className="flex-1 flex flex-col justify-between items-center w-full py-4 text-black">
-              <div className="text-center shrink-0">
-                <span className="text-xs uppercase tracking-widest font-mono text-neutral-400">THE TRIAL</span>
-                <h2 className="text-3xl md:text-4xl font-extrabold mt-2 select-none">
-                  My Legal Verdict
-                </h2>
-              </div>
+          <div className="w-full max-w-md shrink-0 z-10 flex flex-col items-center gap-2 select-none">
+            <button
+              onClick={() => {
+                if (synth) synth.playPop();
+                scrollToSection(9);
+              }}
+              className="w-full py-4 rounded-full bg-black text-white hover:bg-neutral-900 font-extrabold text-base transition duration-300 active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
+            >
+              Hear the sentence... ⚖️
+            </button>
+            <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
+              The truth is out. Let&apos;s face the legal verdict... 👇
+            </p>
+          </div>
+        </ViewportSection>
+      )}
 
-              <div className="w-full flex-1 flex flex-col md:flex-row items-center justify-center gap-8 my-6 relative">
+      {/* --- SCREEN 9: COURTROOM VERDICT --- */}
+      {unlockedSection >= 9 && (
+        <ViewportSection id="section-9" isActive={activeSection === 9}>
+          <div className="w-full flex-1 overflow-y-auto no-scrollbar flex flex-col items-center py-2 min-h-0">
+            <div className="my-auto w-full flex flex-col items-center justify-center gap-4 text-center relative">
+              <span className="text-xs uppercase tracking-widest font-mono text-neutral-400 select-none">THE TRIAL</span>
+              <h2 className="text-3xl md:text-4xl font-extrabold select-none leading-none">
+                My Legal Verdict
+              </h2>
+
+              <div className="w-full flex-col md:flex-row items-center justify-center gap-8 my-2 flex relative">
                 <div className="shrink-0 z-10">
                   <Illustration name="judge" />
                 </div>
@@ -1431,50 +1419,49 @@ function ProposalAppContent() {
                   )}
                 </AnimatePresence>
               </div>
-
-              <div className="w-full max-w-md shrink-0 z-10 flex flex-col items-center gap-2">
-                <button
-                  onClick={() => {
-                    if (synth) synth.playPop();
-                    scrollToSection(10);
-                  }}
-                  disabled={stampState !== "moved" && stampState !== "slammed"}
-                  className={`w-full py-4 rounded-full font-extrabold text-base transition duration-300 active:scale-95 flex items-center justify-center gap-2 ${
-                    stampState === "moved" || stampState === "slammed"
-                      ? "bg-black text-white hover:bg-neutral-900 cursor-pointer"
-                      : "bg-neutral-200 text-neutral-400 cursor-not-allowed"
-                  }`}
-                >
-                  Continue
-                  <ChevronDown size={18} />
-                </button>
-                <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
-                  Sentence passed. Let&apos;s take a quick test on this... 👇
-                </p>
-              </div>
             </div>
-          </ViewportSection>
-        )}
+          </div>
 
-        {/* --- SCREEN 10: QUIZ --- */}
-        {unlockedSection >= 10 && (
-          <ViewportSection id="section-10" isActive={activeSection === 10}>
-            <QuizScreen onSuccess={() => scrollToSection(11)} />
-          </ViewportSection>
-        )}
+          <div className="w-full max-w-md shrink-0 z-10 flex flex-col items-center gap-2 select-none">
+            <button
+              onClick={() => {
+                if (synth) synth.playPop();
+                scrollToSection(10);
+              }}
+              disabled={stampState !== "moved" && stampState !== "slammed"}
+              className={`w-full py-4 rounded-full font-extrabold text-base transition duration-300 active:scale-95 flex items-center justify-center gap-2 ${
+                stampState === "moved" || stampState === "slammed"
+                  ? "bg-black text-white hover:bg-neutral-900 cursor-pointer"
+                  : "bg-neutral-200 text-neutral-400 cursor-not-allowed"
+              }`}
+            >
+              Take the test... 📝
+            </button>
+            <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
+              Sentence passed. Let&apos;s take a quick test on this... 👇
+            </p>
+          </div>
+        </ViewportSection>
+      )}
 
-        {/* --- SCREEN 11: CONFESSION SINCERITY --- */}
-        {unlockedSection >= 11 && (
-          <ViewportSection id="section-11" isActive={activeSection === 11}>
-            <div className="flex-1 flex flex-col justify-between items-center w-full py-4 text-black">
-              <div className="text-center shrink-0">
-                <span className="text-xs uppercase tracking-widest font-mono text-neutral-400">SINCERITY</span>
-                <h2 className="text-2xl md:text-3xl font-extrabold mt-2 select-none">
-                  A Real Moment
-                </h2>
-              </div>
+      {/* --- SCREEN 10: QUIZ --- */}
+      {unlockedSection >= 10 && (
+        <ViewportSection id="section-10" isActive={activeSection === 10}>
+          <QuizScreen onSuccess={() => scrollToSection(11)} />
+        </ViewportSection>
+      )}
 
-              <div className="w-full max-w-lg flex-1 flex flex-col justify-center items-start gap-4 my-8 font-sans select-text text-left pl-4 border-l-4 border-black min-h-[220px]">
+      {/* --- SCREEN 11: CONFESSION SINCERITY --- */}
+      {unlockedSection >= 11 && (
+        <ViewportSection id="section-11" isActive={activeSection === 11}>
+          <div className="w-full flex-1 overflow-y-auto no-scrollbar flex flex-col items-center py-2 min-h-0">
+            <div className="my-auto w-full flex flex-col items-center justify-center gap-4 text-center">
+              <span className="text-xs uppercase tracking-widest font-mono text-neutral-400 select-none">SINCERITY</span>
+              <h2 className="text-2xl md:text-3xl font-extrabold select-none leading-none">
+                A Real Moment
+              </h2>
+
+              <div className="w-full max-w-lg flex flex-col justify-center items-start gap-4 my-4 font-sans select-text text-left pl-4 border-l-4 border-black min-h-[200px]">
                 {confessionLines.slice(0, confessionIndex + 1).map((line, idx) => {
                   const isLast = idx === confessionIndex;
                   return (
@@ -1483,9 +1470,9 @@ function ProposalAppContent() {
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.6 }}
-                      className={`text-lg md:text-xl leading-relaxed ${
+                      className={`text-base md:text-lg leading-relaxed ${
                         idx === confessionLines.length - 1
-                          ? "font-extrabold text-black text-2xl md:text-3xl mt-4 underline decoration-accent decoration-4"
+                          ? "font-extrabold text-black text-xl md:text-2xl mt-4 underline decoration-accent decoration-4"
                           : idx >= 4
                           ? "font-bold text-black"
                           : "text-neutral-600 font-medium"
@@ -1499,51 +1486,50 @@ function ProposalAppContent() {
                   );
                 })}
               </div>
-
-              <div className="w-full max-w-md shrink-0 flex flex-col items-center gap-2">
-                <button
-                  onClick={() => {
-                    if (synth) synth.playPop();
-                    scrollToSection(12);
-                  }}
-                  disabled={!confessionDone}
-                  className={`w-full py-4 rounded-full font-extrabold text-base transition duration-300 active:scale-95 flex items-center justify-center gap-2 ${
-                    confessionDone
-                      ? "bg-black text-white hover:bg-neutral-900 cursor-pointer"
-                      : "bg-neutral-200 text-neutral-400 cursor-not-allowed"
-                  }`}
-                >
-                  Continue
-                  <ChevronDown size={18} />
-                </button>
-                <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
-                  Sincere moment logged. Oh wait... system error detected! 👇
-                </p>
-              </div>
             </div>
-          </ViewportSection>
-        )}
+          </div>
 
-        {/* --- SCREEN 12: PANIC INTERRUPT --- */}
-        {unlockedSection >= 12 && (
-          <ViewportSection id="section-12" isActive={activeSection === 12}>
-            <div className="flex-1 flex flex-col justify-between items-center w-full py-4 text-black">
-              <div className="text-center shrink-0">
-                <span className="text-xs uppercase tracking-widest font-mono text-red-500 font-bold animate-pulse">
-                  CRITICAL INTERRUPT
-                </span>
-                <h2 className="text-3xl md:text-4xl font-extrabold mt-2 select-none">
-                  WAIT!!
-                </h2>
-              </div>
+          <div className="w-full max-w-md shrink-0 flex flex-col items-center gap-2 select-none">
+            <button
+              onClick={() => {
+                if (synth) synth.playPop();
+                scrollToSection(12);
+              }}
+              disabled={!confessionDone}
+              className={`w-full py-4 rounded-full font-extrabold text-base transition duration-300 active:scale-95 flex items-center justify-center gap-2 ${
+                confessionDone
+                  ? "bg-black text-white hover:bg-neutral-900 cursor-pointer"
+                  : "bg-neutral-200 text-neutral-400 cursor-not-allowed"
+              }`}
+            >
+              Uh oh, next... 🚨
+            </button>
+            <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
+              Sincere moment logged. Oh wait... system error detected! 👇
+            </p>
+          </div>
+        </ViewportSection>
+      )}
 
-              <div className="w-full flex-1 flex flex-col md:flex-row items-center justify-center gap-8 my-6">
+      {/* --- SCREEN 12: PANIC INTERRUPT --- */}
+      {unlockedSection >= 12 && (
+        <ViewportSection id="section-12" isActive={activeSection === 12}>
+          <div className="w-full flex-1 overflow-y-auto no-scrollbar flex flex-col items-center py-2 min-h-0">
+            <div className="my-auto w-full flex flex-col items-center justify-center gap-4 text-center">
+              <span className="text-xs uppercase tracking-widest font-mono text-red-500 font-bold animate-pulse select-none">
+                CRITICAL INTERRUPT
+              </span>
+              <h2 className="text-3xl font-extrabold select-none leading-none">
+                WAIT!!
+              </h2>
+
+              <div className="w-full flex-col md:flex-row items-center justify-center gap-8 my-2 flex">
                 <div className="shrink-0">
                   <Illustration name="panic" />
                 </div>
 
-                <div className="w-full max-w-sm flex flex-col gap-4 text-left select-none">
-                  <p className="text-lg font-bold leading-snug text-neutral-800">
+                <div className="w-full max-w-sm flex flex-col gap-4 text-left select-none font-mono">
+                  <p className="text-lg font-bold leading-snug text-neutral-800 font-sans">
                     Okay Becky, I am panicking. Seriously.
                   </p>
                   
@@ -1560,43 +1546,43 @@ function ProposalAppContent() {
                     </div>
                   </div>
 
-                  <p className="text-xs text-neutral-400 italic">
+                  <p className="text-xs text-neutral-400 italic font-sans">
                     My courage levels are very low right now. I need your help.
                   </p>
                 </div>
               </div>
-
-              <div className="w-full max-w-md shrink-0 flex flex-col items-center gap-2">
-                <button
-                  onClick={panicDone ? () => { if (synth) synth.playPop(); scrollToSection(13); } : handleHelpDaniel}
-                  className="w-full py-4 rounded-full bg-black text-white hover:bg-neutral-900 font-extrabold text-base transition duration-300 active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
-                >
-                  {panicDone ? "Continue" : "Help Daniel ⚡"}
-                </button>
-                <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
-                  Daniel saved! Preparing final countdown... 👇
-                </p>
-              </div>
             </div>
-          </ViewportSection>
-        )}
+          </div>
 
-        {/* --- SCREEN 13: COUNTDOWN --- */}
-        {unlockedSection >= 13 && (
-          <ViewportSection
-            id="section-13"
-            isActive={activeSection === 13}
-            bgColor="bg-[#FFFCEE] transition-colors duration-1000"
-          >
-            <div className="flex-1 flex flex-col justify-between items-center w-full py-4 text-black">
-              <div className="text-center shrink-0">
-                <span className="text-xs uppercase tracking-widest font-mono text-neutral-400">PREPARATION</span>
-                <h2 className="text-3xl md:text-4xl font-extrabold mt-2 select-none">
-                  Get Ready...
-                </h2>
-              </div>
+          <div className="w-full max-w-md shrink-0 flex flex-col items-center gap-2 select-none">
+            <button
+              onClick={panicDone ? () => { if (synth) synth.playPop(); scrollToSection(13); } : handleHelpDaniel}
+              className="w-full py-4 rounded-full bg-black text-white hover:bg-neutral-900 font-extrabold text-base transition duration-300 active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
+            >
+              {panicDone ? "Start countdown... ⏰" : "Help Daniel ⚡"}
+            </button>
+            <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
+              Daniel saved! Preparing final countdown... 👇
+            </p>
+          </div>
+        </ViewportSection>
+      )}
 
-              <div className="flex-1 w-full flex flex-col items-center justify-center select-none my-8">
+      {/* --- SCREEN 13: COUNTDOWN --- */}
+      {unlockedSection >= 13 && (
+        <ViewportSection
+          id="section-13"
+          isActive={activeSection === 13}
+          bgColor="bg-[#FFFCEE] transition-colors duration-1000"
+        >
+          <div className="w-full flex-1 overflow-y-auto no-scrollbar flex flex-col items-center py-2 min-h-0">
+            <div className="my-auto w-full flex flex-col items-center justify-center gap-4 text-center">
+              <span className="text-xs uppercase tracking-widest font-mono text-neutral-400 select-none">PREPARATION</span>
+              <h2 className="text-3xl font-extrabold select-none leading-none">
+                Get Ready...
+              </h2>
+
+              <div className="flex-1 w-full flex flex-col items-center justify-center select-none my-4 min-h-[140px]">
                 <AnimatePresence mode="wait">
                   {!countdownDone ? (
                     <motion.div
@@ -1605,7 +1591,7 @@ function ProposalAppContent() {
                       animate={{ scale: 1.1, opacity: 1, rotate: 0 }}
                       exit={{ scale: 2, opacity: 0 }}
                       transition={{ duration: 0.6, type: "spring", damping: 12 }}
-                      className="text-8xl md:text-9xl font-black text-black"
+                      className="text-8xl font-black text-black"
                     >
                       {countdownVal}
                     </motion.div>
@@ -1615,226 +1601,227 @@ function ProposalAppContent() {
                       initial={{ scale: 0.8, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
                       transition={{ duration: 0.6, type: "spring" }}
-                      className="text-center flex flex-col items-center gap-4"
+                      className="text-center flex flex-col items-center gap-2"
                     >
-                      <span className="text-6xl">✨</span>
-                      <h3 className="text-3xl md:text-4xl font-black text-black">
+                      <span className="text-5xl">✨</span>
+                      <h3 className="text-2xl font-black text-black">
                         Okay...
                       </h3>
-                      <p className="text-xl md:text-2xl font-bold underline decoration-accent decoration-4">
+                      <p className="text-lg font-bold underline decoration-accent decoration-4">
                         Here goes nothing...
                       </p>
                     </motion.div>
                   )}
                 </AnimatePresence>
               </div>
-
-              <div className="w-full max-w-md shrink-0 flex flex-col items-center gap-2">
-                <button
-                  onClick={() => {
-                    if (synth) synth.playPop();
-                    scrollToSection(14);
-                  }}
-                  disabled={!countdownDone}
-                  className={`w-full py-4 rounded-full font-extrabold text-base transition duration-300 active:scale-95 flex items-center justify-center gap-2 ${
-                    countdownDone
-                      ? "bg-black text-white hover:bg-neutral-900 cursor-pointer"
-                      : "bg-neutral-200 text-neutral-400 cursor-not-allowed"
-                  }`}
-                >
-                  Let&apos;s Go
-                </button>
-                <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
-                  Countdown complete. Moving to final decision... 👇
-                </p>
-              </div>
             </div>
-          </ViewportSection>
-        )}
+          </div>
 
-        {/* --- SCREEN 14: PROPOSAL SCREEN --- */}
-        {unlockedSection >= 14 && (
-          <ViewportSection
-            id="section-14"
-            isActive={activeSection === 14}
-            bgColor="bg-[#FFFCEE] transition-colors duration-1000"
-          >
-            {/* Background image overlay */}
-            <div className="absolute inset-0 z-0 opacity-[0.04] select-none pointer-events-none">
-              <img src="/Images/Daniel and Becky sitting with hands on chin and dan behind becky.jpeg" alt="" className="w-full h-full object-cover" />
-            </div>
+          <div className="w-full max-w-md shrink-0 flex flex-col items-center gap-2 select-none">
+            <button
+              onClick={() => {
+                if (synth) synth.playPop();
+                scrollToSection(14);
+              }}
+              disabled={!countdownDone}
+              className={`w-full py-4 rounded-full font-extrabold text-base transition duration-300 active:scale-95 flex items-center justify-center gap-2 ${
+                countdownDone
+                  ? "bg-black text-white hover:bg-neutral-900 cursor-pointer"
+                  : "bg-neutral-200 text-neutral-400 cursor-not-allowed"
+              }`}
+            >
+              Let&apos;s Go
+            </button>
+            <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
+              Countdown complete. Moving to final decision... 👇
+            </p>
+          </div>
+        </ViewportSection>
+      )}
 
-            <div className="flex-1 flex flex-col justify-between items-center w-full py-4 text-black relative z-10">
-              <div className="text-center shrink-0">
-                <span className="text-xs uppercase tracking-widest font-mono text-neutral-400">THE QUESTION</span>
-                <h2 className="text-4xl md:text-5xl font-black mt-4 select-none leading-tight">
-                  Will you be my girlfriend, Becky?
-                </h2>
-              </div>
+      {/* --- SCREEN 14: PROPOSAL SCREEN --- */}
+      {unlockedSection >= 14 && (
+        <ViewportSection
+          id="section-14"
+          isActive={activeSection === 14}
+          bgColor="bg-[#FFFCEE] transition-colors duration-1000"
+        >
+          {/* Background image overlay */}
+          <div className="absolute inset-0 z-0 opacity-[0.04] select-none pointer-events-none">
+            <img src="/Images/Daniel and Becky sitting with hands on chin and dan behind becky.jpeg" alt="" className="w-full h-full object-cover" />
+          </div>
 
-              <div className="flex-1 flex items-center justify-center z-10 relative">
-                <Illustration name="heart" />
-              </div>
-
-              <div className="w-full shrink-0 z-20">
-                <ProposalButtons onYesPressed={handleYes} onNoPressed={handleNo} />
-              </div>
-            </div>
-          </ViewportSection>
-        )}
-
-        {/* --- SCREEN 15: TYPING SUSPENSE --- */}
-        {unlockedSection >= 15 && (
-          <ViewportSection
-            id="section-15"
-            isActive={activeSection === 15}
-          >
-            <div className="flex-1 w-full flex flex-col items-center justify-center bg-white text-black select-none">
-              <div className="text-center flex flex-col items-center gap-4">
-                <div className="flex gap-2.5 items-center justify-center mb-2">
-                  <motion.div
-                    className="w-4 h-4 bg-black rounded-full"
-                    animate={{ y: [0, -10, 0] }}
-                    transition={{ duration: 0.6, repeat: Infinity, ease: "easeInOut" }}
-                  />
-                  <motion.div
-                    className="w-4 h-4 bg-black rounded-full"
-                    animate={{ y: [0, -10, 0] }}
-                    transition={{ duration: 0.6, delay: 0.15, repeat: Infinity, ease: "easeInOut" }}
-                  />
-                  <motion.div
-                    className="w-4 h-4 bg-black rounded-full"
-                    animate={{ y: [0, -10, 0] }}
-                    transition={{ duration: 0.6, delay: 0.3, repeat: Infinity, ease: "easeInOut" }}
-                  />
-                </div>
-                
-                <h2 className="text-2xl md:text-3xl font-extrabold font-mono uppercase tracking-wider">
-                  Daniel is typing...
-                </h2>
-                
-                <p className="text-sm text-neutral-400 italic max-w-xs mt-1">
-                  Hold on, I am putting my heart into words...
-                </p>
-              </div>
-            </div>
-          </ViewportSection>
-        )}
-
-        {/* --- SCREEN 16: LETTER EXPERIENCE --- */}
-        {unlockedSection >= 16 && (
-          <ViewportSection id="section-16" isActive={activeSection === 16}>
-            {/* Background image overlay */}
-            <div className="absolute inset-0 z-0 opacity-[0.035] select-none pointer-events-none">
-              <img src="/Images/Becky Face.jpeg" alt="" className="w-full h-full object-cover" />
+          <div className="flex-1 flex flex-col justify-between items-center w-full py-4 text-black relative z-10">
+            <div className="text-center shrink-0">
+              <span className="text-xs uppercase tracking-widest font-mono text-neutral-400">THE QUESTION</span>
+              <h2 className="text-4xl md:text-5xl font-black mt-4 select-none leading-tight">
+                Will you be my girlfriend, Becky?
+              </h2>
             </div>
 
-            <LetterScreen
-              name={name}
-              isActive={activeSection === 16}
-              onContinue={() => scrollToSection(17)}
-            />
-          </ViewportSection>
-        )}
+            <div className="flex-1 flex items-center justify-center z-10 relative">
+              <Illustration name="heart" />
+            </div>
 
-        {/* --- SCREEN 17: REPLY --- */}
-        {unlockedSection >= 17 && (
-          <ViewportSection id="section-17" isActive={activeSection === 17}>
-            <div className="flex-1 flex flex-col justify-between items-center w-full py-4 text-black">
-              <div className="text-center shrink-0">
-                <span className="text-xs uppercase tracking-widest font-mono text-neutral-400">REPLY</span>
-                <h2 className="text-3xl md:text-4xl font-extrabold mt-2 select-none">
-                  Now... It&apos;s your turn.
-                </h2>
-              </div>
+            <div className="w-full shrink-0 z-20">
+              <ProposalButtons onYesPressed={handleYes} onNoPressed={handleNo} />
+            </div>
+          </div>
+        </ViewportSection>
+      )}
 
-              <div className="shrink-0 my-2">
-                <Illustration name="happy" />
-              </div>
-
-              <div className="w-full max-w-lg flex-1 flex flex-col justify-center my-4 relative">
-                <span className="text-xs font-mono font-bold text-neutral-400 mb-1 ml-1 text-left block">
-                  Write your response:
-                </span>
-                <textarea
-                  value={replyText}
-                  onChange={(e) => setReplyText(e.target.value)}
-                  className="w-full flex-1 p-5 border-2 border-black rounded-2xl bg-neutral-50/50 font-sans text-lg focus:outline-none focus:ring-2 focus:ring-accent focus:bg-white select-text resize-none"
-                  placeholder="Type your response here..."
+      {/* --- SCREEN 15: TYPING SUSPENSE --- */}
+      {unlockedSection >= 15 && (
+        <ViewportSection
+          id="section-15"
+          isActive={activeSection === 15}
+        >
+          <div className="flex-1 w-full flex flex-col items-center justify-center bg-white text-black select-none">
+            <div className="text-center flex flex-col items-center gap-4">
+              <div className="flex gap-2.5 items-center justify-center mb-2">
+                <motion.div
+                  className="w-4 h-4 bg-black rounded-full"
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{ duration: 0.6, repeat: Infinity, ease: "easeInOut" }}
+                />
+                <motion.div
+                  className="w-4 h-4 bg-black rounded-full"
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{ duration: 0.6, delay: 0.15, repeat: Infinity, ease: "easeInOut" }}
+                />
+                <motion.div
+                  className="w-4 h-4 bg-black rounded-full"
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{ duration: 0.6, delay: 0.3, repeat: Infinity, ease: "easeInOut" }}
                 />
               </div>
+              
+              <h2 className="text-2xl md:text-3xl font-extrabold font-mono uppercase tracking-wider">
+                Daniel is typing...
+              </h2>
+              
+              <p className="text-sm text-neutral-400 italic max-w-xs mt-1">
+                Hold on, I am putting my heart into words...
+              </p>
+            </div>
+          </div>
+        </ViewportSection>
+      )}
 
-              <div className="w-full max-w-md shrink-0 flex flex-col items-center gap-2">
-                <button
-                  onClick={handleSendToDaniel}
-                  className="w-full py-4 rounded-full bg-black text-white hover:bg-neutral-900 font-extrabold text-base transition duration-300 active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
-                >
-                  Send To Daniel 🚀
-                </button>
-                <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
-                  Let Daniel know! Submit your response directly to his WhatsApp... 👇
+      {/* --- SCREEN 16: LETTER EXPERIENCE --- */}
+      {unlockedSection >= 16 && (
+        <ViewportSection id="section-16" isActive={activeSection === 16}>
+          {/* Background image overlay */}
+          <div className="absolute inset-0 z-0 opacity-[0.035] select-none pointer-events-none">
+            <img src="/Images/Becky Face.jpeg" alt="" className="w-full h-full object-cover" />
+          </div>
+
+          <LetterScreen
+            name={name}
+            isActive={activeSection === 16}
+            onContinue={() => scrollToSection(17)}
+          />
+        </ViewportSection>
+      )}
+
+      {/* --- SCREEN 17: REPLY --- */}
+      {unlockedSection >= 17 && (
+        <ViewportSection id="section-17" isActive={activeSection === 17}>
+          <div className="flex-1 flex flex-col justify-between items-center w-full py-4 text-black">
+            <div className="text-center shrink-0">
+              <span className="text-xs uppercase tracking-widest font-mono text-neutral-400">REPLY</span>
+              <h2 className="text-3xl md:text-4xl font-extrabold mt-2 select-none">
+                Now... It&apos;s your turn.
+              </h2>
+            </div>
+
+            <div className="shrink-0 my-2">
+              <Illustration name="happy" />
+            </div>
+
+            <div className="w-full max-w-lg flex-1 flex flex-col justify-center my-4 relative">
+              <span className="text-xs font-mono font-bold text-neutral-400 mb-1 ml-1 text-left block">
+                Write your response:
+              </span>
+              <textarea
+                value={replyText}
+                onChange={(e) => setReplyText(e.target.value)}
+                className="w-full flex-1 p-5 border-2 border-black rounded-2xl bg-neutral-50/50 font-sans text-lg focus:outline-none focus:ring-2 focus:ring-accent focus:bg-white select-text resize-none"
+                placeholder="Type your response here..."
+              />
+            </div>
+
+            <div className="w-full max-w-md shrink-0 flex flex-col items-center gap-2">
+              <button
+                onClick={handleSendToDaniel}
+                className="w-full py-4 rounded-full bg-black text-white hover:bg-neutral-900 font-extrabold text-base transition duration-300 active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
+              >
+                Send To Daniel 🚀
+              </button>
+              <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
+                Let Daniel know! Submit your response directly to his WhatsApp... 👇
+              </p>
+            </div>
+          </div>
+        </ViewportSection>
+      )}
+
+      {/* --- SCREEN 18: FINAL CELEBRATION --- */}
+      {unlockedSection >= 18 && (
+        <ViewportSection id="section-18" isActive={activeSection === 18}>
+          {/* Background image overlay */}
+          <div className="absolute inset-0 z-0 opacity-[0.045] select-none pointer-events-none">
+            <img src="/Images/Daniel and Becky she looking at him and his hand up to the camera.jpeg" alt="" className="w-full h-full object-cover" />
+          </div>
+
+          <div className="flex-1 flex flex-col justify-between items-center w-full py-4 text-black relative z-10">
+            <div className="text-center shrink-0">
+              <span className="text-xs uppercase tracking-widest font-mono text-accent bg-black px-3 py-1 rounded-full font-bold">
+                MISSION COMPLETE 🏆
+              </span>
+            </div>
+
+            <div className="shrink-0 my-4">
+              <Illustration name="party" />
+            </div>
+
+            <div className="w-full max-w-md text-center flex flex-col items-center gap-5 select-none font-sans">
+              <h2 className="text-4xl md:text-5xl font-black tracking-tight leading-none text-black">
+                Congratulations!
+              </h2>
+              
+              <div className="space-y-2 mt-2">
+                <p className="text-xl font-bold text-neutral-700">
+                  💖 Becky is officially my girlfriend!
+                </p>
+                <p className="text-xl font-bold text-neutral-700">
+                  👨‍💻 I am the happiest guy alive.
+                </p>
+                <p className="text-xl font-bold text-neutral-700">
+                  🔓 A lifetime of sweet memories unlocked.
                 </p>
               </div>
             </div>
-          </ViewportSection>
-        )}
 
-        {/* --- SCREEN 18: FINAL CELEBRATION --- */}
-        {unlockedSection >= 18 && (
-          <ViewportSection id="section-18" isActive={activeSection === 18}>
-            {/* Background image overlay */}
-            <div className="absolute inset-0 z-0 opacity-[0.045] select-none pointer-events-none">
-              <img src="/Images/Daniel and Becky she looking at him and his hand up to the camera.jpeg" alt="" className="w-full h-full object-cover" />
+            <div className="w-full text-center mt-8 pt-4 border-t border-neutral-100 shrink-0 select-none flex flex-col items-center gap-4">
+              <button
+                onClick={resetProgress}
+                className="text-xs font-semibold underline text-neutral-400 hover:text-black cursor-pointer select-none"
+              >
+                Reset Progress & Experience Again
+              </button>
+              <p className="text-xs text-neutral-400 font-bold uppercase tracking-wider select-none">
+                Thank you Becky for making today unforgettable.
+              </p>
             </div>
-
-            <div className="flex-1 flex flex-col justify-between items-center w-full py-4 text-black relative z-10">
-              <div className="text-center shrink-0">
-                <span className="text-xs uppercase tracking-widest font-mono text-accent bg-black px-3 py-1 rounded-full font-bold">
-                  MISSION COMPLETE 🏆
-                </span>
-              </div>
-
-              <div className="shrink-0 my-4">
-                <Illustration name="party" />
-              </div>
-
-              <div className="w-full max-w-md text-center flex flex-col items-center gap-5 select-none font-sans">
-                <h2 className="text-4xl md:text-5xl font-black tracking-tight leading-none text-black">
-                  Congratulations!
-                </h2>
-                
-                <div className="space-y-2 mt-2">
-                  <p className="text-xl font-bold text-neutral-700">
-                    💖 Becky is officially my girlfriend!
-                  </p>
-                  <p className="text-xl font-bold text-neutral-700">
-                    👨‍💻 I am the happiest guy alive.
-                  </p>
-                  <p className="text-xl font-bold text-neutral-700">
-                    🔓 A lifetime of sweet memories unlocked.
-                  </p>
-                </div>
-              </div>
-
-              <div className="w-full text-center mt-8 pt-4 border-t border-neutral-100 shrink-0 select-none flex flex-col items-center gap-4">
-                <button
-                  onClick={resetProgress}
-                  className="text-xs font-semibold underline text-neutral-400 hover:text-black cursor-pointer select-none"
-                >
-                  Reset Progress & Experience Again
-                </button>
-                <p className="text-xs text-neutral-400 font-bold uppercase tracking-wider select-none">
-                  Thank you Becky for making today unforgettable.
-                </p>
-              </div>
-            </div>
-          </ViewportSection>
-        )}
-      </div>
-
-      {/* 🎰 Infinite scrolling text ticker banner (Unlocked from Screen 3 onwards to maintain surprise) */}
-      {unlockedSection >= 3 && <TickerBanner />}
+          </div>
+        </ViewportSection>
+      )}
     </div>
+
+    {/* 🎰 Scrolling text ticker banner (Unlocked from Screen 3 onwards to maintain surprise) */}
+    {unlockedSection >= 3 && <TickerBanner />}
+  </div>
   );
 }
 
@@ -1842,7 +1829,7 @@ export default function Home() {
   return (
     <Suspense fallback={
       <div className="flex flex-1 items-center justify-center h-screen bg-white text-black font-mono">
-        Loading Becky&apos;s story...
+        Establishing secure handshake...
       </div>
     }>
       <ProposalAppContent />

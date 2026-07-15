@@ -21,7 +21,7 @@ html, body {
 .scroll-container {
   scroll-snap-type: y mandatory;
   overflow-y: scroll;
-  height: 100dvh;
+  height: 100%;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
 }
@@ -38,7 +38,7 @@ html, body {
 .scroll-section {
   scroll-snap-align: start;
   scroll-snap-stop: always;
-  height: 100dvh;
+  height: 100%;
   width: 100%;
   position: relative;
   overflow: hidden;

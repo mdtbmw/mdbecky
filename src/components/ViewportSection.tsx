@@ -16,7 +16,7 @@ export default function ViewportSection({
   isActive,
   children,
   className = "",
-  bgColor = "bg-white",
+  bgColor = "bg-transparent",
 }: ViewportSectionProps) {
   return (
     <section
