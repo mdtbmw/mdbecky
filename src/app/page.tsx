@@ -28,11 +28,75 @@ const CAROUSEL_IMAGES = [
   { id: 3, src: "/Images/Daniel and Becky.jpeg", emoji: "🌅", label: "Us" },
 ];
 
+// 🌸 Custom backdrop that rains Becky's name in tiny letters continuously
+function RainingNames() {
+  const [particles, setParticles] = useState<{ id: number; x: number; delay: number; duration: number; scale: number }[]>([]);
+
+  useEffect(() => {
+    // Generate 16 floating name particles
+    const arr = Array.from({ length: 16 }).map((_, i) => ({
+      id: i,
+      x: Math.random() * 100, // horizontal start position
+      delay: Math.random() * 12,
+      duration: 12 + Math.random() * 10,
+      scale: 0.65 + Math.random() * 0.45,
+    }));
+    setParticles(arr);
+  }, []);
+
+  return (
+    <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden select-none opacity-[0.035]">
+      {particles.map((p) => (
+        <motion.div
+          key={p.id}
+          className="absolute font-black text-[10px] text-black whitespace-nowrap tracking-wider font-mono"
+          style={{ left: `${p.x}%`, top: "-5%" }}
+          animate={{
+            y: ["0vh", "110vh"],
+            x: [`${p.x}%`, `${p.x + (Math.sin(p.id) * 8)}%`],
+          }}
+          transition={{
+            duration: p.duration,
+            delay: p.delay,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+        >
+          Becky ❤️
+        </motion.div>
+      ))}
+    </div>
+  );
+}
+
+// 🎰 Cute infinite scrolling text ticker fixed at the bottom
+function TickerBanner() {
+  return (
+    <div className="w-full h-7 bg-black text-white border-t border-black flex items-center overflow-hidden font-mono text-[9px] uppercase tracking-wider select-none shrink-0 z-30 relative">
+      <div className="whitespace-nowrap animate-ticker flex items-center gap-8">
+        {[1, 2].map((group) => (
+          <div key={group} className="flex items-center gap-8 shrink-0">
+            <span>DANIEL ❤️ BECKY</span>
+            <span className="text-accent font-bold">•</span>
+            <span>WARNING: DANIEL&apos;S HEART RATE IS CURRENTLY 182 BPM</span>
+            <span className="text-accent font-bold">•</span>
+            <span>SYSTEM STATUS: ADORABLENESS Scan Exceeded Safety bounds</span>
+            <span className="text-accent font-bold">•</span>
+            <span>STATUS: HAND-CODED WITH LOVE BY DANIEL FOR BECKY IN 2026</span>
+            <span className="text-accent font-bold">•</span>
+            <span>PROPOSAL SECURITY PROTOCOL ACTIVE</span>
+            <span className="text-accent font-bold">•</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function ProposalAppContent() {
   const searchParams = useSearchParams();
   const rawName = searchParams.get("name") || "";
   const name = rawName ? rawName.charAt(0).toUpperCase() + rawName.slice(1) : "Becky";
-  // Default phone fallback is Daniel's configured number
   const phone = searchParams.get("phone") || "2348147987460";
 
   // Scroll Container Ref
@@ -482,8 +546,11 @@ function ProposalAppContent() {
   };
 
   return (
-    <div className="flex-1 flex flex-col relative w-full h-full bg-white text-black font-sans selection:bg-accent selection:text-black overflow-hidden">
+    <div className="h-screen w-screen flex flex-col justify-between items-stretch overflow-hidden bg-white text-black font-sans relative">
       
+      {/* 🌧️ Raining Becky Names backdrop */}
+      <RainingNames />
+
       {/* Background soft moving name watermark */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden select-none opacity-[0.03] font-black text-6xl tracking-widest text-black">
         <motion.div
@@ -509,12 +576,12 @@ function ProposalAppContent() {
         </motion.div>
       </div>
 
-      {/* Main Snap Container */}
+      {/* Main Snap Scroll Container */}
       <div
         ref={containerRef}
         className="scroll-container no-scrollbar w-full flex-1 z-10"
       >
-        {/* --- SCREEN 0: DECRYPT (Low Opacity couple background) --- */}
+        {/* --- SCREEN 0: DECRYPT MESSAGE --- */}
         <ViewportSection id="section-0" isActive={activeSection === 0}>
           {/* Background image overlay */}
           <div className="absolute inset-0 z-0 opacity-[0.035] select-none pointer-events-none">
@@ -537,13 +604,16 @@ function ProposalAppContent() {
               </p>
             </div>
 
-            <div className="w-full max-w-md shrink-0">
+            <div className="w-full max-w-md shrink-0 flex flex-col items-center gap-2">
               <button
                 onClick={handleDecryptMessage}
                 className="w-full py-4 rounded-full bg-black text-white hover:bg-neutral-900 font-extrabold text-base transition duration-300 active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
               >
                 Decrypt Message 🔑
               </button>
+              <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
+                Click decrypt below to begin our journey... 👇
+              </p>
             </div>
           </div>
         </ViewportSection>
@@ -600,7 +670,7 @@ function ProposalAppContent() {
                 </div>
               </div>
 
-              <div className="w-full max-w-md shrink-0">
+              <div className="w-full max-w-md shrink-0 flex flex-col items-center gap-2">
                 <button
                   onClick={() => {
                     if (synth) synth.playPop();
@@ -616,12 +686,15 @@ function ProposalAppContent() {
                   Continue
                   <ChevronDown size={18} />
                 </button>
+                <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
+                  Decrypted successfully. Let&apos;s proceed to the security questions below... 👇
+                </p>
               </div>
             </div>
           </ViewportSection>
         )}
 
-        {/* --- SCREEN 2: DO YOU KNOW THIS GUY? (With real photo) --- */}
+        {/* --- SCREEN 2: DO YOU KNOW THIS GUY? --- */}
         {unlockedSection >= 2 && (
           <ViewportSection id="section-2" isActive={activeSection === 2}>
             <div className="flex-1 flex flex-col justify-between items-center w-full py-4 text-black text-center">
@@ -632,7 +705,6 @@ function ProposalAppContent() {
                 </h2>
               </div>
 
-              {/* Daniel Card */}
               <div className="w-full flex-1 flex flex-col items-center justify-center my-4">
                 <div className="border-2 border-black rounded-3xl p-4 bg-white flex flex-col items-center w-44 select-none shadow-none relative">
                   <div className="relative w-32 h-32 border-2 border-black rounded-2xl overflow-hidden bg-neutral-100 flex items-center justify-center">
@@ -668,7 +740,6 @@ function ProposalAppContent() {
                 </div>
               </div>
 
-              {/* YES / NO Choices */}
               <div className="w-full max-w-md shrink-0 flex flex-col gap-2 select-none">
                 <AnimatePresence mode="wait">
                   {knowGuyStatus !== "yes" ? (
@@ -693,16 +764,21 @@ function ProposalAppContent() {
                       </motion.button>
                     </motion.div>
                   ) : (
-                    <motion.button
-                      key="continue"
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      onClick={() => scrollToSection(3)}
-                      className="w-full py-4 bg-black text-white hover:bg-neutral-900 font-extrabold rounded-full cursor-pointer flex items-center justify-center gap-2 text-base"
-                    >
-                      Continue
-                      <ChevronDown size={18} />
-                    </motion.button>
+                    <div className="flex flex-col items-center gap-2">
+                      <motion.button
+                        key="continue"
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        onClick={() => scrollToSection(3)}
+                        className="w-full py-4 bg-black text-white hover:bg-neutral-900 font-extrabold rounded-full cursor-pointer flex items-center justify-center gap-2 text-base"
+                      >
+                        Continue
+                        <ChevronDown size={18} />
+                      </motion.button>
+                      <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
+                        Identity verified. Let&apos;s check your credentials next... 👇
+                      </p>
+                    </div>
                   )}
                 </AnimatePresence>
               </div>
@@ -710,7 +786,7 @@ function ProposalAppContent() {
           </ViewportSection>
         )}
 
-        {/* --- SCREEN 3: IS THIS DAMSEL YOU? (With real photo) --- */}
+        {/* --- SCREEN 3: IS THIS BEAUTIFUL DAMSEL YOU? --- */}
         {unlockedSection >= 3 && (
           <ViewportSection id="section-3" isActive={activeSection === 3}>
             <div className="flex-1 flex flex-col justify-between items-center w-full py-4 text-black text-center">
@@ -721,7 +797,6 @@ function ProposalAppContent() {
                 </h2>
               </div>
 
-              {/* Becky Card */}
               <div className="w-full flex-1 flex flex-col items-center justify-center my-4">
                 <div className="border-2 border-black rounded-3xl p-4 bg-white flex flex-col items-center w-44 select-none shadow-none relative">
                   <div className="relative w-32 h-32 border-2 border-black rounded-2xl overflow-hidden bg-neutral-100 flex items-center justify-center">
@@ -733,24 +808,24 @@ function ProposalAppContent() {
                   <span className="font-extrabold text-base text-black mt-0.5">Becky</span>
                 </div>
 
-                <div className="h-10 mt-4 flex items-center">
+                <div className="h-14 mt-3 flex items-center px-4 max-w-xs text-center">
                   <AnimatePresence mode="wait">
                     {damselStatus === "yes" && (
                       <motion.p
                         initial={{ opacity: 0, y: 5 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="text-sm font-bold text-black font-sans"
+                        className="text-xs font-bold text-black font-sans leading-relaxed"
                       >
-                        Just checking... you look absolutely gorgeous today. 💖
+                        ACCESS GRANTED! 🔒✨ Verified: The sweetest, most beautiful girl is logged in. Daniel&apos;s heart rate has officially doubled. Proceed with caution... 🥰
                       </motion.p>
                     )}
                     {damselStatus === "no" && (
                       <motion.p
                         initial={{ opacity: 0, y: 5 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="text-sm font-bold text-red-600 font-sans"
+                        className="text-xs font-bold text-red-600 font-sans leading-normal"
                       >
-                        Ain&apos;t no way, gal! Shhh... it&apos;s definitely you. 😍
+                        Ain&apos;t no way, gal! Shhh... you can&apos;t fool the system. Try again! 😍
                       </motion.p>
                     )}
                   </AnimatePresence>
@@ -782,16 +857,21 @@ function ProposalAppContent() {
                       </motion.button>
                     </motion.div>
                   ) : (
-                    <motion.button
-                      key="continue"
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      onClick={() => scrollToSection(4)}
-                      className="w-full py-4 bg-black text-white hover:bg-neutral-900 font-extrabold rounded-full cursor-pointer flex items-center justify-center gap-2 text-base"
-                    >
-                      Continue
-                      <ChevronDown size={18} />
-                    </motion.button>
+                    <div className="flex flex-col items-center gap-2">
+                      <motion.button
+                        key="continue"
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        onClick={() => scrollToSection(4)}
+                        className="w-full py-4 bg-black text-white hover:bg-neutral-900 font-extrabold rounded-full cursor-pointer flex items-center justify-center gap-2 text-base"
+                      >
+                        Continue
+                        <ChevronDown size={18} />
+                      </motion.button>
+                      <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
+                        Both identities verified. Let&apos;s examine the archive folder next... 👇
+                      </p>
+                    </div>
                   )}
                 </AnimatePresence>
               </div>
@@ -799,7 +879,7 @@ function ProposalAppContent() {
           </ViewportSection>
         )}
 
-        {/* --- SCREEN 4: COUPLES PHOTO SWIPER (With real images) --- */}
+        {/* --- SCREEN 4: COUPLES PHOTO SWIPER (With visual stacked offsets) --- */}
         {unlockedSection >= 4 && (
           <ViewportSection id="section-4" isActive={activeSection === 4}>
             <div className="flex-1 flex flex-col justify-between items-center w-full py-4 text-black text-center">
@@ -814,23 +894,65 @@ function ProposalAppContent() {
               </div>
 
               <div className="w-full flex-1 flex items-center justify-center my-2 relative">
+                {/* Swipe instruction helper */}
+                {carouselIndex < CAROUSEL_IMAGES.length && (
+                  <motion.div
+                    animate={{ y: [0, -4, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute -top-6 text-xs font-bold bg-black text-white border border-black px-3.5 py-1 rounded-full font-mono uppercase tracking-wider z-40 pointer-events-none"
+                  >
+                    Swipe left/right to browse deck 👆
+                  </motion.div>
+                )}
+
                 <AnimatePresence>
                   {CAROUSEL_IMAGES.map((img, idx) => {
                     if (idx < carouselIndex) return null;
-                    if (idx > carouselIndex + 1) return null;
+                    if (idx > carouselIndex + 2) return null; // Show up to 3 cards stacked
                     
                     const isTop = idx === carouselIndex;
+                    const relIndex = idx - carouselIndex;
+
+                    // Rotations and offsets for card stacking effect
+                    let cardRotate = 0;
+                    let cardX = 0;
+                    let cardY = 0;
+                    let cardScale = 1;
+
+                    if (relIndex === 0) {
+                      cardRotate = 0;
+                      cardX = 0;
+                      cardY = 0;
+                      cardScale = 1;
+                    } else if (relIndex === 1) {
+                      cardRotate = -5;
+                      cardX = -12;
+                      cardY = 8;
+                      cardScale = 0.95;
+                    } else if (relIndex === 2) {
+                      cardRotate = 5;
+                      cardX = 12;
+                      cardY = 16;
+                      cardScale = 0.90;
+                    }
+
                     return (
                       <motion.div
                         key={img.id}
-                        className="absolute w-64 h-[300px] bg-white border-2 border-black rounded-3xl p-3 flex flex-col justify-between items-center shadow-none"
+                        className="absolute w-64 h-[300px] bg-white border-2 border-black rounded-3xl p-3 flex flex-col justify-between items-center shadow-none cursor-grab active:cursor-grabbing"
                         style={{
                           zIndex: 30 - idx,
                           originX: 0.5,
                           originY: 0.5,
                         }}
-                        initial={{ scale: 0.95, y: 10 }}
-                        animate={{ scale: isTop ? 1 : 0.95, y: isTop ? 0 : 10 }}
+                        initial={{ scale: cardScale, y: cardY + 20, rotate: cardRotate, opacity: 0 }}
+                        animate={{ 
+                          scale: cardScale, 
+                          y: cardY, 
+                          x: isTop ? 0 : cardX, 
+                          rotate: cardRotate,
+                          opacity: 1
+                        }}
                         exit={{ x: 280, rotate: 20, opacity: 0 }}
                         drag={isTop ? "x" : false}
                         dragConstraints={{ left: 0, right: 0 }}
@@ -873,7 +995,7 @@ function ProposalAppContent() {
                 </AnimatePresence>
               </div>
 
-              <div className="w-full max-w-md shrink-0 select-none">
+              <div className="w-full max-w-md shrink-0 select-none flex flex-col items-center gap-2">
                 <button
                   onClick={() => {
                     if (synth) synth.playPop();
@@ -889,6 +1011,9 @@ function ProposalAppContent() {
                   Continue
                   <ChevronDown size={18} />
                 </button>
+                <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
+                  Archive verified. Now read the legal warning guidelines... 👇
+                </p>
               </div>
             </div>
           </ViewportSection>
@@ -942,7 +1067,7 @@ function ProposalAppContent() {
                 </div>
               </div>
 
-              <div className="w-full max-w-md shrink-0">
+              <div className="w-full max-w-md shrink-0 flex flex-col items-center gap-2">
                 <button
                   onClick={() => {
                     if (synth) synth.playPop();
@@ -958,6 +1083,9 @@ function ProposalAppContent() {
                   Continue
                   <ChevronDown size={18} />
                 </button>
+                <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
+                  Agreement signed. Preparing personality scan... 👇
+                </p>
               </div>
             </div>
           </ViewportSection>
@@ -1034,7 +1162,7 @@ function ProposalAppContent() {
                 </div>
               </div>
 
-              <div className="w-full max-w-md shrink-0">
+              <div className="w-full max-w-md shrink-0 flex flex-col items-center gap-2">
                 <button
                   onClick={() => {
                     if (synth) synth.playPop();
@@ -1050,6 +1178,9 @@ function ProposalAppContent() {
                   Continue
                   <ChevronDown size={18} />
                 </button>
+                <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
+                  Scanner completed. Preparing narrative download... 👇
+                </p>
               </div>
             </div>
           </ViewportSection>
@@ -1116,7 +1247,7 @@ function ProposalAppContent() {
                 </div>
               </div>
 
-              <div className="w-full max-w-md shrink-0">
+              <div className="w-full max-w-md shrink-0 flex flex-col items-center gap-2">
                 <button
                   onClick={() => {
                     if (synth) synth.playPop();
@@ -1127,6 +1258,9 @@ function ProposalAppContent() {
                   Continue
                   <ChevronDown size={18} />
                 </button>
+                <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
+                  Part I read. Let&apos;s reveal the truth in Part II... 👇
+                </p>
               </div>
             </div>
           </ViewportSection>
@@ -1223,7 +1357,7 @@ function ProposalAppContent() {
                 </div>
               </div>
 
-              <div className="w-full max-w-md shrink-0 z-10">
+              <div className="w-full max-w-md shrink-0 z-10 flex flex-col items-center gap-2">
                 <button
                   onClick={() => {
                     if (synth) synth.playPop();
@@ -1234,6 +1368,9 @@ function ProposalAppContent() {
                   Continue
                   <ChevronDown size={18} />
                 </button>
+                <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
+                  The truth is out. Let&apos;s face the legal verdict... 👇
+                </p>
               </div>
             </div>
           </ViewportSection>
@@ -1299,7 +1436,7 @@ function ProposalAppContent() {
                 </AnimatePresence>
               </div>
 
-              <div className="w-full max-w-md shrink-0 z-10">
+              <div className="w-full max-w-md shrink-0 z-10 flex flex-col items-center gap-2">
                 <button
                   onClick={() => {
                     if (synth) synth.playPop();
@@ -1315,6 +1452,9 @@ function ProposalAppContent() {
                   Continue
                   <ChevronDown size={18} />
                 </button>
+                <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
+                  Sentence passed. Let&apos;s take a quick test on this... 👇
+                </p>
               </div>
             </div>
           </ViewportSection>
@@ -1364,7 +1504,7 @@ function ProposalAppContent() {
                 })}
               </div>
 
-              <div className="w-full max-w-md shrink-0">
+              <div className="w-full max-w-md shrink-0 flex flex-col items-center gap-2">
                 <button
                   onClick={() => {
                     if (synth) synth.playPop();
@@ -1380,6 +1520,9 @@ function ProposalAppContent() {
                   Continue
                   <ChevronDown size={18} />
                 </button>
+                <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
+                  Sincere moment logged. Oh wait... system error detected! 👇
+                </p>
               </div>
             </div>
           </ViewportSection>
@@ -1427,13 +1570,16 @@ function ProposalAppContent() {
                 </div>
               </div>
 
-              <div className="w-full max-w-md shrink-0">
+              <div className="w-full max-w-md shrink-0 flex flex-col items-center gap-2">
                 <button
                   onClick={panicDone ? () => { if (synth) synth.playPop(); scrollToSection(13); } : handleHelpDaniel}
                   className="w-full py-4 rounded-full bg-black text-white hover:bg-neutral-900 font-extrabold text-base transition duration-300 active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
                 >
                   {panicDone ? "Continue" : "Help Daniel ⚡"}
                 </button>
+                <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
+                  Daniel saved! Preparing final countdown... 👇
+                </p>
               </div>
             </div>
           </ViewportSection>
@@ -1487,7 +1633,7 @@ function ProposalAppContent() {
                 </AnimatePresence>
               </div>
 
-              <div className="w-full max-w-md shrink-0">
+              <div className="w-full max-w-md shrink-0 flex flex-col items-center gap-2">
                 <button
                   onClick={() => {
                     if (synth) synth.playPop();
@@ -1502,12 +1648,15 @@ function ProposalAppContent() {
                 >
                   Let&apos;s Go
                 </button>
+                <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
+                  Countdown complete. Moving to final decision... 👇
+                </p>
               </div>
             </div>
           </ViewportSection>
         )}
 
-        {/* --- SCREEN 14: PROPOSAL SCREEN (Low Opacity background overlay) --- */}
+        {/* --- SCREEN 14: PROPOSAL SCREEN --- */}
         {unlockedSection >= 14 && (
           <ViewportSection
             id="section-14"
@@ -1576,7 +1725,7 @@ function ProposalAppContent() {
           </ViewportSection>
         )}
 
-        {/* --- SCREEN 16: LETTER EXPERIENCE (Low Opacity background overlay) --- */}
+        {/* --- SCREEN 16: LETTER EXPERIENCE --- */}
         {unlockedSection >= 16 && (
           <ViewportSection id="section-16" isActive={activeSection === 16}>
             {/* Background image overlay */}
@@ -1619,19 +1768,22 @@ function ProposalAppContent() {
                 />
               </div>
 
-              <div className="w-full max-w-md shrink-0">
+              <div className="w-full max-w-md shrink-0 flex flex-col items-center gap-2">
                 <button
                   onClick={handleSendToDaniel}
                   className="w-full py-4 rounded-full bg-black text-white hover:bg-neutral-900 font-extrabold text-base transition duration-300 active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
                 >
                   Send To Daniel 🚀
                 </button>
+                <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
+                  Let Daniel know! Submit your response directly to his WhatsApp... 👇
+                </p>
               </div>
             </div>
           </ViewportSection>
         )}
 
-        {/* --- SCREEN 18: FINAL CELEBRATION (Low Opacity background overlay) --- */}
+        {/* --- SCREEN 18: FINAL CELEBRATION --- */}
         {unlockedSection >= 18 && (
           <ViewportSection id="section-18" isActive={activeSection === 18}>
             {/* Background image overlay */}
@@ -1683,6 +1835,9 @@ function ProposalAppContent() {
           </ViewportSection>
         )}
       </div>
+
+      {/* 🎰 Infinite scrolling text ticker banner */}
+      <TickerBanner />
     </div>
   );
 }
