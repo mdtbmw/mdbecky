@@ -28,15 +28,14 @@ const CAROUSEL_IMAGES = [
   { id: 3, src: "/Images/Daniel and Becky.jpeg", emoji: "🌅", label: "Us" },
 ];
 
-// 🌸 Custom backdrop that rains Becky's name in tiny letters continuously
+// 🌧️ Custom backdrop that rains Becky's name in tiny letters continuously
 function RainingNames() {
   const [particles, setParticles] = useState<{ id: number; x: number; delay: number; duration: number; scale: number }[]>([]);
 
   useEffect(() => {
-    // Generate 16 floating name particles
     const arr = Array.from({ length: 16 }).map((_, i) => ({
       id: i,
-      x: Math.random() * 100, // horizontal start position
+      x: Math.random() * 100,
       delay: Math.random() * 12,
       duration: 12 + Math.random() * 10,
       scale: 0.65 + Math.random() * 0.45,
@@ -69,7 +68,7 @@ function RainingNames() {
   );
 }
 
-// 🎰 Cute infinite scrolling text ticker fixed at the bottom
+// 🎰 Scrolling text ticker fixed at the bottom
 function TickerBanner() {
   return (
     <div className="w-full h-7 bg-black text-white border-t border-black flex items-center overflow-hidden font-mono text-[9px] uppercase tracking-wider select-none shrink-0 z-30 relative">
@@ -191,18 +190,18 @@ function ProposalAppContent() {
     scrollToSection(1);
   };
 
-  // --- SCREEN 1: TERMINAL STATES ---
+  // --- SCREEN 1: TERMINAL STATES (Mysterious - No Names revealed) ---
   const [terminalLines, setTerminalLines] = useState<string[]>([]);
   const [terminalDone, setTerminalDone] = useState(false);
   const [terminalReveal, setTerminalReveal] = useState(false);
 
   const terminalSequence = [
-    "Loading Becky's proposal database...",
-    "Compiling Daniel's courage variables...",
-    "Initializing custom layout modules...",
-    "Status: Spent nights coding this code for Becky...",
-    "Verifying security handshake...",
-    "Identity Found.",
+    "Establishing secure connection handshake...",
+    "Querying encrypted database...",
+    "Loading verification matrix...",
+    "Status: Code compiling...",
+    "Decrypting credentials...",
+    "Identity match found.",
   ];
 
   useEffect(() => {
@@ -548,46 +547,43 @@ function ProposalAppContent() {
   return (
     <div className="h-screen w-screen flex flex-col justify-between items-stretch overflow-hidden bg-white text-black font-sans relative">
       
-      {/* 🌧️ Raining Becky Names backdrop */}
-      <RainingNames />
+      {/* 🌧️ Raining Becky Names backdrop (Unlocked from Screen 3 onwards to maintain surprise) */}
+      {unlockedSection >= 3 && <RainingNames />}
 
-      {/* Background soft moving name watermark */}
-      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden select-none opacity-[0.03] font-black text-6xl tracking-widest text-black">
-        <motion.div
-          className="absolute top-1/4 left-10 text-7xl"
-          animate={{ y: [0, -35, 0], x: [0, 20, 0], rotate: [0, 5, 0] }}
-          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-        >
-          BECKY
-        </motion.div>
-        <motion.div
-          className="absolute top-2/3 right-16 text-6xl"
-          animate={{ y: [0, -25, 0], x: [0, -15, 0], rotate: [0, -6, 0] }}
-          transition={{ duration: 7, delay: 1, repeat: Infinity, ease: "easeInOut" }}
-        >
-          BECKY ❤️
-        </motion.div>
-        <motion.div
-          className="absolute top-10 right-1/4 text-5xl"
-          animate={{ y: [0, -20, 0], x: [0, 10, 0] }}
-          transition={{ duration: 8, delay: 2, repeat: Infinity, ease: "easeInOut" }}
-        >
-          BECKY
-        </motion.div>
-      </div>
+      {/* Background soft moving name watermark (Unlocked from Screen 3 onwards to maintain surprise) */}
+      {unlockedSection >= 3 && (
+        <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden select-none opacity-[0.03] font-black text-6xl tracking-widest text-black">
+          <motion.div
+            className="absolute top-1/4 left-10 text-7xl"
+            animate={{ y: [0, -35, 0], x: [0, 20, 0], rotate: [0, 5, 0] }}
+            transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+          >
+            BECKY
+          </motion.div>
+          <motion.div
+            className="absolute top-2/3 right-16 text-6xl"
+            animate={{ y: [0, -25, 0], x: [0, -15, 0], rotate: [0, -6, 0] }}
+            transition={{ duration: 7, delay: 1, repeat: Infinity, ease: "easeInOut" }}
+          >
+            BECKY ❤️
+          </motion.div>
+          <motion.div
+            className="absolute top-10 right-1/4 text-5xl"
+            animate={{ y: [0, -20, 0], x: [0, 10, 0] }}
+            transition={{ duration: 8, delay: 2, repeat: Infinity, ease: "easeInOut" }}
+          >
+            BECKY
+          </motion.div>
+        </div>
+      )}
 
       {/* Main Snap Scroll Container */}
       <div
         ref={containerRef}
         className="scroll-container no-scrollbar w-full flex-1 z-10"
       >
-        {/* --- SCREEN 0: DECRYPT MESSAGE --- */}
+        {/* --- SCREEN 0: DECRYPT MESSAGE (Minimalist - No photo watermark yet to keep surprise) --- */}
         <ViewportSection id="section-0" isActive={activeSection === 0}>
-          {/* Background image overlay */}
-          <div className="absolute inset-0 z-0 opacity-[0.035] select-none pointer-events-none">
-            <img src="/Images/Daniel and Becky.jpeg" alt="" className="w-full h-full object-cover" />
-          </div>
-
           <div className="flex-1 flex flex-col justify-between items-center w-full py-4 text-black text-center select-none z-10">
             <div className="flex items-center gap-2 border-2 border-black rounded-full px-4 py-2 font-mono text-xs uppercase bg-neutral-50 shrink-0">
               <Lock size={14} className="animate-pulse" />
@@ -597,10 +593,10 @@ function ProposalAppContent() {
             <div className="w-full flex-1 flex flex-col items-center justify-center gap-4">
               <span className="text-6xl animate-float-slow">📩</span>
               <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight">
-                Hi Becky.
+                Hi there.
               </h1>
               <p className="text-neutral-500 font-medium text-sm max-w-xs leading-relaxed">
-                I spent days writing code just for you. There is a secure, personalized message waiting to be decrypted.
+                There is an encrypted, secure message waiting to be decrypted. Please verify your connection below.
               </p>
             </div>
 
@@ -660,9 +656,9 @@ function ProposalAppContent() {
                         transition={{ duration: 0.6 }}
                         className="mt-4 pt-4 border-t border-neutral-800 text-neutral-200"
                       >
-                        <p className="text-base font-bold text-accent">Hello, Becky.</p>
+                        <p className="text-base font-bold text-accent">Security Match Found.</p>
                         <p className="text-xs text-neutral-400 mt-1 italic font-sans">
-                          &ldquo;I have been expecting you.&rdquo;
+                          &ldquo;Access credentials ready.&rdquo;
                         </p>
                       </motion.div>
                     )}
@@ -705,6 +701,7 @@ function ProposalAppContent() {
                 </h2>
               </div>
 
+              {/* Daniel Card */}
               <div className="w-full flex-1 flex flex-col items-center justify-center my-4">
                 <div className="border-2 border-black rounded-3xl p-4 bg-white flex flex-col items-center w-44 select-none shadow-none relative">
                   <div className="relative w-32 h-32 border-2 border-black rounded-2xl overflow-hidden bg-neutral-100 flex items-center justify-center">
@@ -740,6 +737,7 @@ function ProposalAppContent() {
                 </div>
               </div>
 
+              {/* YES / NO Choices */}
               <div className="w-full max-w-md shrink-0 flex flex-col gap-2 select-none">
                 <AnimatePresence mode="wait">
                   {knowGuyStatus !== "yes" ? (
@@ -879,7 +877,7 @@ function ProposalAppContent() {
           </ViewportSection>
         )}
 
-        {/* --- SCREEN 4: COUPLES PHOTO SWIPER (With visual stacked offsets) --- */}
+        {/* --- SCREEN 4: COUPLES PHOTO SWIPER --- */}
         {unlockedSection >= 4 && (
           <ViewportSection id="section-4" isActive={activeSection === 4}>
             <div className="flex-1 flex flex-col justify-between items-center w-full py-4 text-black text-center">
@@ -894,7 +892,6 @@ function ProposalAppContent() {
               </div>
 
               <div className="w-full flex-1 flex items-center justify-center my-2 relative">
-                {/* Swipe instruction helper */}
                 {carouselIndex < CAROUSEL_IMAGES.length && (
                   <motion.div
                     animate={{ y: [0, -4, 0] }}
@@ -908,12 +905,11 @@ function ProposalAppContent() {
                 <AnimatePresence>
                   {CAROUSEL_IMAGES.map((img, idx) => {
                     if (idx < carouselIndex) return null;
-                    if (idx > carouselIndex + 2) return null; // Show up to 3 cards stacked
+                    if (idx > carouselIndex + 2) return null;
                     
                     const isTop = idx === carouselIndex;
                     const relIndex = idx - carouselIndex;
 
-                    // Rotations and offsets for card stacking effect
                     let cardRotate = 0;
                     let cardX = 0;
                     let cardY = 0;
@@ -1836,8 +1832,8 @@ function ProposalAppContent() {
         )}
       </div>
 
-      {/* 🎰 Infinite scrolling text ticker banner */}
-      <TickerBanner />
+      {/* 🎰 Infinite scrolling text ticker banner (Unlocked from Screen 3 onwards to maintain surprise) */}
+      {unlockedSection >= 3 && <TickerBanner />}
     </div>
   );
 }
