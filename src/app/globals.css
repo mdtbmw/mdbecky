@@ -1,0 +1,102 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #000000;
+  --accent: #FFD54A;
+}
+
+/* Force pure white background and black typography globally, overriding prefers-color-scheme */
+html, body {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Scrolling is managed inside the snap container */
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+/* Scroll snap container */
+.scroll-container {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  height: 100dvh;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Hide scrollbar while maintaining scroll functionality */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scroll-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  height: 100dvh;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Custom fonts */
+@theme inline {
+  --color-accent: var(--accent);
+  --font-sans: var(--font-outfit), sans-serif;
+  --font-mono: var(--font-jetbrains-mono), monospace;
+}
+
+/* Blinking terminal cursor */
+@keyframes blink {
+  50% { opacity: 0; }
+}
+.cursor-blink {
+  animation: blink 0.8s step-start infinite;
+}
+
+/* Custom CSS keyframe animations for flat illustrations */
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(2deg); }
+}
+.animate-float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+@keyframes float-fast {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(-2deg); }
+}
+.animate-float-fast {
+  animation: float-fast 4s ease-in-out infinite;
+}
+
+@keyframes spin-slow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+@keyframes pulse-soft {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+.animate-pulse-soft {
+  animation: pulse-soft 3s ease-in-out infinite;
+}
+
+@keyframes wave {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(15deg); }
+}
+.animate-wave {
+  transform-origin: bottom right;
+  animation: wave 2s ease-in-out infinite;
+}
