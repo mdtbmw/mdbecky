@@ -694,8 +694,8 @@ function ProposalAppContent() {
         {/* --- SCREEN 2: DO YOU KNOW THIS GUY? --- */}
         {unlockedSection >= 2 && (
           <ViewportSection id="section-2" isActive={activeSection === 2}>
-            <div className="w-full flex-1 overflow-y-auto no-scrollbar flex flex-col items-center py-2 min-h-0">
-              <div className="my-auto w-full flex flex-col items-center justify-center gap-4 text-center">
+            <div className="w-full flex-1 overflow-y-auto no-scrollbar flex flex-col items-center py-2 min-h-0 relative">
+              <div className="my-auto w-full flex flex-col items-center justify-center gap-4 text-center pb-20">
                 <span className="text-xs uppercase tracking-widest font-mono text-neutral-400 select-none">VERIFICATION PART I</span>
                 <h2 className="text-2xl md:text-3xl font-extrabold select-none leading-none">
                   Do you know this guy?
@@ -734,48 +734,51 @@ function ProposalAppContent() {
                   </AnimatePresence>
                 </div>
               </div>
-            </div>
 
-            <div className="w-full max-w-md shrink-0 flex flex-col gap-2 select-none">
-              <AnimatePresence mode="wait">
-                {knowGuyStatus !== "yes" ? (
-                  <motion.div
-                    key="options"
-                    className="w-full flex gap-2 md:gap-3"
-                    exit={{ opacity: 0, y: -5 }}
-                  >
-                    <button
-                      onClick={handleKnowGuyYes}
-                      className="flex-1 py-3 md:py-4 px-2 bg-black text-white hover:bg-neutral-900 font-bold rounded-full cursor-pointer transition active:scale-95 text-sm md:text-base whitespace-nowrap"
-                    >
-                      YES ❤️
-                    </button>
-                    <motion.button
-                      onClick={handleKnowGuyNo}
-                      animate={knowGuyShaking ? { x: [-8, 8, -6, 6, -3, 3, 0] } : {}}
-                      transition={{ duration: 0.3 }}
-                      className="flex-1 py-3 md:py-4 px-2 border-2 border-black bg-white hover:bg-neutral-50 text-black font-bold rounded-full cursor-pointer transition text-sm md:text-base whitespace-nowrap"
-                    >
-                      NO 🙃
-                    </motion.button>
-                  </motion.div>
-                ) : (
-                  <div className="flex flex-col items-center gap-2 w-full">
-                    <motion.button
-                      key="continue"
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      onClick={() => scrollToSection(3)}
-                      className="w-full py-4 bg-black text-white hover:bg-neutral-900 font-extrabold rounded-full cursor-pointer flex items-center justify-center gap-2 text-base"
-                    >
-                      Next slide please... 🥱
-                    </motion.button>
-                    <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
-                      Identity verified. Let&apos;s check your credentials next... 👇
-                    </p>
-                  </div>
-                )}
-              </AnimatePresence>
+              {/* Floating buttons */}
+              <div className="sticky bottom-0 w-full bg-white/90 backdrop-blur-md border-t border-black/5 pt-3 pb-2 px-0 z-20">
+                <div className="w-full max-w-md mx-auto flex flex-col gap-2 select-none">
+                  <AnimatePresence mode="wait">
+                    {knowGuyStatus !== "yes" ? (
+                      <motion.div
+                        key="options"
+                        className="w-full flex gap-2 md:gap-3"
+                        exit={{ opacity: 0, y: -5 }}
+                      >
+                        <button
+                          onClick={handleKnowGuyYes}
+                          className="flex-1 py-3 md:py-4 px-2 bg-black text-white hover:bg-neutral-900 font-bold rounded-full cursor-pointer transition active:scale-95 text-sm md:text-base whitespace-nowrap"
+                        >
+                          YES ❤️
+                        </button>
+                        <motion.button
+                          onClick={handleKnowGuyNo}
+                          animate={knowGuyShaking ? { x: [-8, 8, -6, 6, -3, 3, 0] } : {}}
+                          transition={{ duration: 0.3 }}
+                          className="flex-1 py-3 md:py-4 px-2 border-2 border-black bg-white hover:bg-neutral-50 text-black font-bold rounded-full cursor-pointer transition text-sm md:text-base whitespace-nowrap"
+                        >
+                          NO 🙃
+                        </motion.button>
+                      </motion.div>
+                    ) : (
+                      <div className="flex flex-col items-center gap-2 w-full">
+                        <motion.button
+                          key="continue"
+                          initial={{ opacity: 0, scale: 0.95 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          onClick={() => scrollToSection(3)}
+                          className="w-full py-4 bg-black text-white hover:bg-neutral-900 font-extrabold rounded-full cursor-pointer flex items-center justify-center gap-2 text-base"
+                        >
+                          Next slide please... 🥱
+                        </motion.button>
+                        <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
+                          Identity verified. Let&apos;s check your credentials next... 👇
+                        </p>
+                      </div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </div>
             </div>
           </ViewportSection>
         )}
@@ -783,8 +786,8 @@ function ProposalAppContent() {
         {/* --- SCREEN 3: IS THIS BEAUTIFUL DAMSEL YOU? --- */}
         {unlockedSection >= 3 && (
           <ViewportSection id="section-3" isActive={activeSection === 3}>
-            <div className="w-full flex-1 overflow-y-auto no-scrollbar flex flex-col items-center py-2 min-h-0">
-              <div className="my-auto w-full flex flex-col items-center justify-center gap-4 text-center">
+            <div className="w-full flex-1 overflow-y-auto no-scrollbar flex flex-col items-center py-2 min-h-0 relative">
+              <div className="my-auto w-full flex flex-col items-center justify-center gap-4 text-center pb-20">
                 <span className="text-xs uppercase tracking-widest font-mono text-neutral-400 select-none">VERIFICATION PART II</span>
                 <h2 className="text-2xl md:text-3xl font-extrabold select-none leading-none">
                   Is this beautiful damsel you?
@@ -808,7 +811,7 @@ function ProposalAppContent() {
                         animate={{ opacity: 1, y: 0 }}
                         className="text-xs font-bold text-black font-sans leading-relaxed"
                       >
-                        ACCESS GRANTED! 🔒✨ Verified: The sweetest, most beautiful girl is logged in. Daniel&apos;s heart rate has officially doubled. Proceed with caution... 🥰
+                        ACCESS GRANTED! 🔒✨ Verified: The sweetest, most beautiful girl is logged in. My heart rate has officially doubled. Proceed with caution... 🥰
                       </motion.p>
                     )}
                     {damselStatus === "no" && (
@@ -823,49 +826,51 @@ function ProposalAppContent() {
                   </AnimatePresence>
                 </div>
               </div>
-            </div>
 
-            {/* YES / NO Choices */}
-            <div className="w-full max-w-md shrink-0 flex flex-col gap-2 select-none">
-              <AnimatePresence mode="wait">
-                {damselStatus !== "yes" ? (
-                  <motion.div
-                    key="options"
-                    className="w-full flex gap-2 md:gap-3"
-                    exit={{ opacity: 0, y: -5 }}
-                  >
-                    <button
-                      onClick={handleDamselYes}
-                      className="flex-1 py-3 md:py-4 px-2 bg-black text-white hover:bg-neutral-900 font-bold rounded-full cursor-pointer transition active:scale-95 text-sm md:text-base whitespace-nowrap"
-                    >
-                      YES, it&apos;s me! ✨
-                    </button>
-                    <motion.button
-                      onClick={handleDamselNo}
-                      animate={damselShaking ? { x: [-8, 8, -6, 6, -3, 3, 0] } : {}}
-                      transition={{ duration: 0.3 }}
-                      className="flex-1 py-3 md:py-4 px-2 border-2 border-black bg-white hover:bg-neutral-50 text-black font-bold rounded-full cursor-pointer transition text-sm md:text-base whitespace-nowrap"
-                    >
-                      NO, who&apos;s that? 🙃
-                    </motion.button>
-                  </motion.div>
-                ) : (
-                  <div className="flex flex-col items-center gap-2 w-full">
-                    <motion.button
-                      key="continue"
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      onClick={() => scrollToSection(4)}
-                      className="w-full py-4 bg-black text-white hover:bg-neutral-900 font-extrabold rounded-full cursor-pointer flex items-center justify-center gap-2 text-base"
-                    >
-                      Keep digging... 🕵️
-                    </motion.button>
-                    <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
-                      Both identities verified. Let&apos;s examine the archive folder next... 👇
-                    </p>
-                  </div>
-                )}
-              </AnimatePresence>
+              {/* Floating buttons */}
+              <div className="sticky bottom-0 w-full bg-white/90 backdrop-blur-md border-t border-black/5 pt-3 pb-2 px-0 z-20">
+                <div className="w-full max-w-md mx-auto flex flex-col gap-2 select-none">
+                  <AnimatePresence mode="wait">
+                    {damselStatus !== "yes" ? (
+                      <motion.div
+                        key="options"
+                        className="w-full flex gap-2 md:gap-3"
+                        exit={{ opacity: 0, y: -5 }}
+                      >
+                        <button
+                          onClick={handleDamselYes}
+                          className="flex-1 py-3 md:py-4 px-2 bg-black text-white hover:bg-neutral-900 font-bold rounded-full cursor-pointer transition active:scale-95 text-sm md:text-base whitespace-nowrap"
+                        >
+                          YES, it&apos;s me! ✨
+                        </button>
+                        <motion.button
+                          onClick={handleDamselNo}
+                          animate={damselShaking ? { x: [-8, 8, -6, 6, -3, 3, 0] } : {}}
+                          transition={{ duration: 0.3 }}
+                          className="flex-1 py-3 md:py-4 px-2 border-2 border-black bg-white hover:bg-neutral-50 text-black font-bold rounded-full cursor-pointer transition text-sm md:text-base whitespace-nowrap"
+                        >
+                          NO, who&apos;s that? 🙃
+                        </motion.button>
+                      </motion.div>
+                    ) : (
+                      <div className="flex flex-col items-center gap-2 w-full">
+                        <motion.button
+                          key="continue"
+                          initial={{ opacity: 0, scale: 0.95 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          onClick={() => scrollToSection(4)}
+                          className="w-full py-4 bg-black text-white hover:bg-neutral-900 font-extrabold rounded-full cursor-pointer flex items-center justify-center gap-2 text-base"
+                        >
+                          Keep digging... 🕵️
+                        </motion.button>
+                        <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
+                          Both identities verified. Let&apos;s examine the archive folder next... 👇
+                        </p>
+                      </div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </div>
             </div>
           </ViewportSection>
         )}
