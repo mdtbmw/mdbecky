@@ -15,12 +15,26 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "A Special Message For You",
-  description: "An interactive, cinematic story waiting for you.",
+  title: "MDB",
+  description: "Secure Decryption Protocol. Verification required.",
   openGraph: {
-    title: "A Special Message For You",
-    description: "An interactive, cinematic story waiting for you.",
+    title: "MDB",
+    description: "Secure Decryption Protocol. Verification required.",
     type: "website",
+    images: [
+      {
+        url: "/share_card.jpg",
+        width: 1200,
+        height: 630,
+        alt: "MDB Secure Protocol",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "MDB",
+    description: "Secure Decryption Protocol. Verification required.",
+    images: ["/share_card.jpg"],
   },
 };
 
