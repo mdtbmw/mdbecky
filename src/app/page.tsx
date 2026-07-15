@@ -695,7 +695,7 @@ function ProposalAppContent() {
         {unlockedSection >= 2 && (
           <ViewportSection id="section-2" isActive={activeSection === 2}>
             <div className="w-full flex-1 overflow-y-auto no-scrollbar flex flex-col items-center py-2 min-h-0 relative">
-              <div className="my-auto w-full flex flex-col items-center justify-center gap-4 text-center pb-20">
+              <div className="my-auto w-full flex flex-col items-center justify-center gap-4 text-center pb-8">
                 <span className="text-xs uppercase tracking-widest font-mono text-neutral-400 select-none">VERIFICATION PART I</span>
                 <h2 className="text-2xl md:text-3xl font-extrabold select-none leading-none">
                   Do you know this guy?
@@ -736,7 +736,7 @@ function ProposalAppContent() {
               </div>
 
               {/* Floating buttons */}
-              <div className="sticky bottom-0 w-full bg-white/90 backdrop-blur-md border-t border-black/5 pt-3 pb-2 px-0 z-20">
+              <div className="sticky bottom-0 w-full bg-white/95 backdrop-blur-md border-t border-black/10 pt-1 pb-2 px-0 z-20">
                 <div className="w-full max-w-md mx-auto flex flex-col gap-2 select-none">
                   <AnimatePresence mode="wait">
                     {knowGuyStatus !== "yes" ? (
@@ -787,7 +787,7 @@ function ProposalAppContent() {
         {unlockedSection >= 3 && (
           <ViewportSection id="section-3" isActive={activeSection === 3}>
             <div className="w-full flex-1 overflow-y-auto no-scrollbar flex flex-col items-center py-2 min-h-0 relative">
-              <div className="my-auto w-full flex flex-col items-center justify-center gap-4 text-center pb-20">
+              <div className="my-auto w-full flex flex-col items-center justify-center gap-4 text-center pb-8">
                 <span className="text-xs uppercase tracking-widest font-mono text-neutral-400 select-none">VERIFICATION PART II</span>
                 <h2 className="text-2xl md:text-3xl font-extrabold select-none leading-none">
                   Is this beautiful damsel you?
@@ -828,7 +828,7 @@ function ProposalAppContent() {
               </div>
 
               {/* Floating buttons */}
-              <div className="sticky bottom-0 w-full bg-white/90 backdrop-blur-md border-t border-black/5 pt-3 pb-2 px-0 z-20">
+              <div className="sticky bottom-0 w-full bg-white/95 backdrop-blur-md border-t border-black/10 pt-1 pb-2 px-0 z-20">
                 <div className="w-full max-w-md mx-auto flex flex-col gap-2 select-none">
                   <AnimatePresence mode="wait">
                     {damselStatus !== "yes" ? (
