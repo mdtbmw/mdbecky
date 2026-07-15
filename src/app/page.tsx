@@ -381,14 +381,15 @@ function ProposalAppContent() {
 
   // --- SCREEN 11: CONFESSION ---
   const confessionLines = [
-    `Becky, you're genuinely my favorite person.`,
-    "Remember when I asked you if asking a girl out online was okay?",
-    "I asked you for advice about how to ask a girl out...",
-    "And I let you believe it was someone else.",
-    "But the truth is, Becky...",
-    "There was never anyone else.",
-    "The girl I wanted to ask out was always you.",
-    "And somewhere along the way... I realized... I like you.",
+    `Becky, can I be honest with you? Like, really honest?`,
+    "It's not just your smile — though that alone could light up the entire city.",
+    "It's the way you crinkle your nose when you're confused about something silly.",
+    "It's how you say my name — like it actually means something to you.",
+    "It's the way you argue with me about random things and somehow make it adorable.",
+    "You know what gets me every time? When you send me a voice note and I can hear you laughing at your own joke before you even finish it.",
+    "I save every single one of them. Don't judge me.",
+    "The truth is, Becky... I fell for you. Not all at once. But slowly, deeply, in a thousand tiny moments that I keep replaying in my head.",
+    "And honestly? I don't ever want to stop falling.",
   ];
   const [confessionIndex, setConfessionIndex] = useState(0);
   const [confessionDone, setConfessionDone] = useState(false);
@@ -548,10 +549,10 @@ function ProposalAppContent() {
     <div className="h-screen w-screen flex flex-col justify-between items-stretch overflow-hidden bg-white text-black font-sans relative">
       
       {/* 🌧️ Raining Becky Names backdrop (Unlocked from Screen 3 onwards to maintain surprise) */}
-      {unlockedSection >= 3 && <RainingNames />}
+      {unlockedSection >= 3 && activeSection >= 2 && <RainingNames />}
 
       {/* Background soft moving name watermark (Unlocked from Screen 3 onwards to maintain surprise) */}
-      {unlockedSection >= 3 && (
+      {unlockedSection >= 3 && activeSection >= 2 && (
         <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden select-none opacity-[0.03] font-black text-6xl tracking-widest text-black">
           <motion.div
             className="absolute top-1/4 left-10 text-7xl"
@@ -740,12 +741,12 @@ function ProposalAppContent() {
                 {knowGuyStatus !== "yes" ? (
                   <motion.div
                     key="options"
-                    className="w-full flex gap-3"
+                    className="w-full flex gap-2 md:gap-3"
                     exit={{ opacity: 0, y: -5 }}
                   >
                     <button
                       onClick={handleKnowGuyYes}
-                      className="flex-1 py-4 bg-black text-white hover:bg-neutral-900 font-bold rounded-full cursor-pointer transition active:scale-95 text-base"
+                      className="flex-1 py-3 md:py-4 px-2 bg-black text-white hover:bg-neutral-900 font-bold rounded-full cursor-pointer transition active:scale-95 text-sm md:text-base whitespace-nowrap"
                     >
                       YES ❤️
                     </button>
@@ -753,7 +754,7 @@ function ProposalAppContent() {
                       onClick={handleKnowGuyNo}
                       animate={knowGuyShaking ? { x: [-8, 8, -6, 6, -3, 3, 0] } : {}}
                       transition={{ duration: 0.3 }}
-                      className="flex-1 py-4 border-2 border-black bg-white hover:bg-neutral-50 text-black font-bold rounded-full cursor-pointer transition"
+                      className="flex-1 py-3 md:py-4 px-2 border-2 border-black bg-white hover:bg-neutral-50 text-black font-bold rounded-full cursor-pointer transition text-sm md:text-base whitespace-nowrap"
                     >
                       NO 🙃
                     </motion.button>
@@ -830,12 +831,12 @@ function ProposalAppContent() {
                 {damselStatus !== "yes" ? (
                   <motion.div
                     key="options"
-                    className="w-full flex gap-3"
+                    className="w-full flex gap-2 md:gap-3"
                     exit={{ opacity: 0, y: -5 }}
                   >
                     <button
                       onClick={handleDamselYes}
-                      className="flex-1 py-4 bg-black text-white hover:bg-neutral-900 font-bold rounded-full cursor-pointer transition active:scale-95 text-base"
+                      className="flex-1 py-3 md:py-4 px-2 bg-black text-white hover:bg-neutral-900 font-bold rounded-full cursor-pointer transition active:scale-95 text-sm md:text-base whitespace-nowrap"
                     >
                       YES, it&apos;s me! ✨
                     </button>
@@ -843,7 +844,7 @@ function ProposalAppContent() {
                       onClick={handleDamselNo}
                       animate={damselShaking ? { x: [-8, 8, -6, 6, -3, 3, 0] } : {}}
                       transition={{ duration: 0.3 }}
-                      className="flex-1 py-4 border-2 border-black bg-white hover:bg-neutral-50 text-black font-bold rounded-full cursor-pointer transition"
+                      className="flex-1 py-3 md:py-4 px-2 border-2 border-black bg-white hover:bg-neutral-50 text-black font-bold rounded-full cursor-pointer transition text-sm md:text-base whitespace-nowrap"
                     >
                       NO, who&apos;s that? 🙃
                     </motion.button>
@@ -1378,7 +1379,7 @@ function ProposalAppContent() {
 
                 <div className="flex-1 max-w-md text-left flex flex-col gap-4 z-10 select-none">
                   <span className="text-xs font-mono uppercase tracking-widest text-neutral-400 font-bold">
-                    Daniel&apos;s Self-Imposed Court of Truth
+                    My Self-Imposed Court of Truth
                   </span>
                   <p className="text-xl font-medium leading-relaxed text-neutral-800">
                     So I put myself on trial for holding back...
@@ -1470,10 +1471,10 @@ function ProposalAppContent() {
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.6 }}
-                      className={`text-base md:text-lg leading-relaxed ${
+                          className={`text-base md:text-lg leading-relaxed ${
                         idx === confessionLines.length - 1
                           ? "font-extrabold text-black text-xl md:text-2xl mt-4 underline decoration-accent decoration-4"
-                          : idx >= 4
+                          : idx >= 5
                           ? "font-bold text-black"
                           : "text-neutral-600 font-medium"
                       }`}
@@ -1559,10 +1560,10 @@ function ProposalAppContent() {
               onClick={panicDone ? () => { if (synth) synth.playPop(); scrollToSection(13); } : handleHelpDaniel}
               className="w-full py-4 rounded-full bg-black text-white hover:bg-neutral-900 font-extrabold text-base transition duration-300 active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
             >
-              {panicDone ? "Start countdown... ⏰" : "Help Daniel ⚡"}
+              {panicDone ? "Start countdown... ⏰" : "Help me ⚡"}
             </button>
             <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
-              Daniel saved! Preparing final countdown... 👇
+                I&apos;m saved! Preparing final countdown... 👇
             </p>
           </div>
         </ViewportSection>
@@ -1756,10 +1757,10 @@ function ProposalAppContent() {
                 onClick={handleSendToDaniel}
                 className="w-full py-4 rounded-full bg-black text-white hover:bg-neutral-900 font-extrabold text-base transition duration-300 active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
               >
-                Send To Daniel 🚀
+                Send To Me 🚀
               </button>
               <p className="text-[9px] font-mono font-bold text-neutral-400 uppercase tracking-widest mt-1 select-none">
-                Let Daniel know! Submit your response directly to his WhatsApp... 👇
+                Let me know! Submit your response directly to my WhatsApp... 👇
               </p>
             </div>
           </div>
@@ -1785,20 +1786,38 @@ function ProposalAppContent() {
               <Illustration name="party" />
             </div>
 
-            <div className="w-full max-w-md text-center flex flex-col items-center gap-5 select-none font-sans">
+            <div className="w-full max-w-md text-center flex flex-col items-center gap-5 select-none font-sans overflow-y-auto no-scrollbar px-2">
               <h2 className="text-4xl md:text-5xl font-black tracking-tight leading-none text-black">
                 Congratulations!
               </h2>
               
-              <div className="space-y-2 mt-2">
-                <p className="text-xl font-bold text-neutral-700">
-                  💖 Becky is officially my girlfriend!
+              <div className="space-y-3 mt-1 text-left max-w-sm">
+                <p className="text-lg font-bold text-black leading-relaxed">
+                  💖 She said yes. BECKY said yes.
                 </p>
-                <p className="text-xl font-bold text-neutral-700">
-                  👨‍💻 I am the happiest guy alive.
+                <p className="text-base text-neutral-700 leading-relaxed">
+                  I don't even know where to start. My hands are shaking as I type this. You have no idea what this means to me.
                 </p>
-                <p className="text-xl font-bold text-neutral-700">
-                  🔓 A lifetime of sweet memories unlocked.
+                <p className="text-base text-neutral-700 leading-relaxed">
+                  Becky, you are genuinely the most incredible person I have ever met. Not because you're beautiful — which you are, and I could write a whole novel about your eyes alone — but because of who you are. Your heart. Your mind. The way you care. The way you make everyone around you feel seen.
+                </p>
+                <p className="text-base text-neutral-700 leading-relaxed">
+                  I love the way you get excited about little things. I love how you text me random thoughts at 2 AM. I love your terrible music taste that you defend like it's a constitutional right. I love your laugh — that genuine, uncontrollable one that makes your eyes disappear. I'd choose that sound over any song in the world.
+                </p>
+                <p className="text-base text-neutral-700 leading-relaxed">
+                  I promise you this: I will never stop trying to make you happy. I will be your biggest supporter, your safe space, your annoying voice note sender at odd hours. I'll celebrate your wins like they're my own and hold your hand through every hard day.
+                </p>
+                <p className="text-base text-neutral-700 leading-relaxed">
+                  I'll show up. Every single time. Not because I have to, but because being with you is the easiest, most natural thing I've ever done.
+                </p>
+                <p className="text-base font-bold text-black leading-relaxed">
+                  I love you, Becky. Not just as my girlfriend. As my person. My favorite person. The one I want to annoy, adore, cherish, and grow old with.
+                </p>
+                <p className="text-base text-neutral-600 italic leading-relaxed">
+                  Thank you for saying yes. Thank you for being you. Thank you for choosing me.
+                </p>
+                <p className="text-sm font-bold text-black mt-2">
+                  This is just the beginning. And I can't wait for every single moment of it. ❤️
                 </p>
               </div>
             </div>
@@ -1820,7 +1839,7 @@ function ProposalAppContent() {
     </div>
 
     {/* 🎰 Scrolling text ticker banner (Unlocked from Screen 3 onwards to maintain surprise) */}
-    {unlockedSection >= 3 && <TickerBanner />}
+    {unlockedSection >= 3 && activeSection >= 2 && <TickerBanner />}
   </div>
   );
 }

@@ -19,15 +19,17 @@ export default function LetterScreen({ name, isActive, onContinue }: LetterScree
 
   const letterText = `Dear Becky,
 
-You are genuinely one of the sweetest, most special people I have ever known.
+If you're reading this, my heart is probably racing so fast I might need medical attention. But that's your fault — for being you.
 
-Remember when I asked you for advice about asking a girl out? I asked if it was okay to do it online, and I let you think I was talking about someone else...
+I've replayed this moment in my head a hundred times. And every single time, I end up smiling like an idiot. Because it's you. It's always been you.
 
-The truth is, Becky, there was never anyone else. It was always you.
+You have this way of making the ordinary feel magical. A random "good morning" text from you? Best part of my day. A voice note where you're rambling about something? I'll listen to it twice. Your laugh? I'd pay good money to hear it on loop.
 
-Talking to you is the highlight of my day. You make me laugh, you make me smile, and you make ordinary days feel beautiful. I wanted to follow your advice, so here I am, taking that step.
+I love how your brain works — the way you overthink the smallest things but somehow always land on the right answer. I love how fiercely you care about the people you love. I love that you're stubborn, because it means you fight for what matters. And somehow, you chose to let me be part of that.
 
-Thank you for being so sweet, and for bringing so much happiness into my life. I hope you'll say yes.
+I know I'm not perfect. I'm awkward, I overthink, and I definitely put way too much effort into this app. But what I feel for you is the most real thing I've ever known.
+
+So here I am — no games, no pretending, just me. Hoping you'll take a chance on the guy who built an entire website just to tell you how crazy he is about you.
 
 With all my heart,
 Daniel`;

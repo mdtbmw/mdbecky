@@ -9,10 +9,10 @@ interface QuizScreenProps {
 }
 
 const QUIZ_OPTIONS = [
-  { id: "A", text: "Block him. 🛑", isCorrect: false },
-  { id: "B", text: "Ignore him forever. 🔕", isCorrect: false },
+  { id: "A", text: "Block me. 🛑", isCorrect: false },
+  { id: "B", text: "Ignore me forever. 🔕", isCorrect: false },
   { id: "C", text: "Pretend this never happened. 🫣", isCorrect: false },
-  { id: "D", text: "Hear him out. 💬", isCorrect: true },
+  { id: "D", text: "Hear me out. 💬", isCorrect: true },
 ];
 
 export default function QuizScreen({ onSuccess }: QuizScreenProps) {

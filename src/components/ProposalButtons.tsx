@@ -24,7 +24,7 @@ const RUNAWAY_LABELS = [
   "System Error ⚠️",
   "Nope 🙅‍♀️",
   "Nice attempt! 🏆",
-  "Daniel disabled this option 👨‍💻",
+  "I disabled this option 👨‍💻",
   "Fine... I'll stay still soon... 🙄",
 ];
 
